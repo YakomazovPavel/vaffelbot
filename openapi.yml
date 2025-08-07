@@ -1,0 +1,285 @@
+openapi: "3.0.4"
+info:
+  title: Vaffel Bot API
+  version: "0.0.1"
+servers:
+  - url: https://api.server.test/v1
+
+paths:
+  /users/{id}/:
+    get:
+      parameters:
+        - in: path
+          required: true
+          name: id
+          description: Id пользователя телеграи
+          schema:
+            type: string
+
+      operationId: get_user
+      tags:
+        - Users
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          description: not found
+  /users/:
+    post:
+      operationId: create_user
+      tags:
+        - Users
+      requestBody:
+        description: Создать пользователя
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+  /categories/:
+    get:
+      operationId: get_categories
+      tags:
+        - Categories
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categories"
+  /dishes/:
+    get:
+      parameters:
+        - in: query
+          required: false
+          name: category_id
+          schema:
+            type: string
+        - in: query
+          required: false
+          name: search
+          schema:
+            type: string
+      operationId: get_dishes
+      tags:
+        - Dishes
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Dishes"
+  /baskets/:
+    get:
+      parameters:
+        - in: query
+          required: true
+          name: user_id
+          schema:
+            type: string
+      operationId: get_baskets
+      tags:
+        - Baskets
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Baskets"
+  /baskets/{basket_id}/dishes/:
+    get:
+      tags:
+        - Baskets
+      operationId: get_baskets_dishes
+      parameters:
+        - in: path
+          required: true
+          name: id
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BasketDishes"
+  /baskets/{basket_id}/dishes/{dish_id}/:
+    post:
+      tags:
+        - Baskets
+      operationId: create_baskets_dishes
+      parameters:
+        - in: path
+          required: true
+          name: basket_id
+          schema:
+            type: string
+        - in: path
+          required: true
+          name: dish_id
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                dish_id:
+                  type: string
+                basket_id:
+                  type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BasketDish"
+    delete:
+      tags:
+        - Baskets
+      operationId: delete_baskets_dishes
+      parameters:
+        - in: path
+          required: true
+          name: basket_id
+          schema:
+            type: string
+        - in: path
+          required: true
+          name: dish_id
+          schema:
+            type: string
+      responses:
+        "204":
+          description: OK
+
+components:
+  schemas:
+    Categories:
+      type: array
+      items:
+        $ref: "#/components/schemas/Category"
+    Category:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "91a309e9-4ca2-459b-a945-af0bf9222617"
+        name:
+          type: string
+          example: "Сырные вафли"
+    Dishes:
+      type: array
+      items:
+        $ref: "#/components/schemas/Dish"
+    Dish:
+      type: object
+      properties:
+        id:
+          type: string
+        category_id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        calories:
+          type: number
+        proteins:
+          type: number
+        fats:
+          type: number
+        carbs:
+          type: number
+        weight:
+          type: number
+        photo_url:
+          type: string
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "123123"
+        username:
+          type: string
+          example: "@pavel"
+        first_name:
+          type: string
+          example: "pavel"
+        last_name:
+          type: string
+          example: "durov"
+        photo_url:
+          type: string
+          example: https://pic.rutube.ru/video/fa/17/fa1763b889c5e26146174f8878315143.jpg
+    Basket:
+      type: object
+      properties:
+        id:
+          type: string
+        photo_url:
+          type: string
+        author_id:
+          type: string
+        name:
+          type: string
+        is_locked:
+          type: boolean
+        created:
+          type: string
+        updated:
+          type: string
+    Baskets:
+      type: array
+      items:
+        $ref: "#/components/schemas/Basket"
+    BasketDish:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        calories:
+          type: number
+        proteins:
+          type: number
+        fats:
+          type: number
+        carbs:
+          type: number
+        weight:
+          type: number
+        photo_url:
+          type: string
+        user_id:
+          type: string
+    BasketDishes:
+      type: array
+      items:
+        $ref: "#/components/schemas/BasketDish"

@@ -2,7 +2,28 @@
 backend for vaffel_tg bot
 
 
-Вход в базу данных 
+## Запуск проекта
+
+1. Создать виртуальное окружение
 ```
-docker exec -it container_name psql -U user -d vaffel
+python -m venv .venv
+```
+2. Активировать виртуальное окружение
+```
+. .venv/bin/activate
+```
+4. Установить зависимости
+```
+pip install -r requirements.txt
+```
+5. Запустить проект
+```
+python main.py
+```
+
+## Помощь
+
+Применить изменение таблиц в бд
+```
+python database.py
 ```
