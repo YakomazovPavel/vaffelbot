@@ -6,7 +6,7 @@ backend for vaffel_tg bot
 
 1. Создать виртуальное окружение
 ```
-python -m venv .venv
+python3 -m venv .venv
 ```
 2. Активировать виртуальное окружение
 ```
