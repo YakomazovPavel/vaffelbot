@@ -21,10 +21,10 @@ class Base(DeclarativeBase):
 class User(Base):
     __tablename__ = "user"
     id = Column(Integer, primary_key=True)
-    username = Column(String)
-    first_name = Column(String)
-    last_name = Column(String)
-    photo_url = Column(String)
+    username = Column(String, nullable=True)
+    first_name = Column(String, nullable=True)
+    last_name = Column(String, nullable=True)
+    photo_url = Column(String, nullable=True)
 
 
 class Basket(Base):
@@ -40,7 +40,7 @@ class Basket(Base):
 
 class BasketUser(Base):
     __tablename__ = "basket_user"
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     basket_id = Column(Integer, ForeignKey(Basket.id))
     user_id = Column(Integer, ForeignKey(User.id))
 
@@ -49,19 +49,19 @@ class Dish(Base):
     __tablename__ = "dish"
     id = Column(Integer, primary_key=True)
     name = Column(String)
-    description = Column(String)
-    price = Column(Float)
-    calories = Column(Float)
-    proteins = Column(Float)
-    fats = Column(Float)
-    carbs = Column(Float)
-    weight = Column(Float)
-    photo_url = Column(Integer, primary_key=True)
+    description = Column(String, nullable=True)
+    price = Column(Float, nullable=True)
+    calories = Column(Float, nullable=True)
+    proteins = Column(Float, nullable=True)
+    fats = Column(Float, nullable=True)
+    carbs = Column(Float, nullable=True)
+    weight = Column(Float, nullable=True)
+    photo_url = Column(String, nullable=True)
 
 
 class BasketDish(Base):
     __tablename__ = "basket_dish"
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     basket_id = Column(Integer, ForeignKey(Basket.id))
     user_id = Column(Integer, ForeignKey(User.id))
     dish_id = Column(Integer, ForeignKey(Dish.id))
@@ -76,7 +76,7 @@ class Category(Base):
 
 class CategoryDish(Base):
     __tablename__ = "category_dish"
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     dish_id = Column(Integer, ForeignKey(Dish.id))
     category_id = Column(Integer, ForeignKey(Category.id))
 
