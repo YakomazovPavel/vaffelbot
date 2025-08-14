@@ -27,6 +27,11 @@ pip install -r requirements.txt
 ```
 python main.py
 ```
+6. Запустить телеграм бота
+
+```
+python bot.py
+```
 
 ## Помощь
 
