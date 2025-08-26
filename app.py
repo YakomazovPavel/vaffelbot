@@ -68,7 +68,7 @@ def get_categories() -> List[Category]:
 
 
 @app.get("/api/dishes/")
-@pydantic_api(name="Получить список категорий", tags=["Dishes"])
+@pydantic_api(name="Получить список блюд", tags=["Dishes"])
 def get_dishes() -> List[Dish]:
     return "Dish"
 
