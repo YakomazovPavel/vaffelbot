@@ -13,9 +13,15 @@ from sqlalchemy.orm import DeclarativeBase, sessionmaker
 from sqlalchemy.sql import func
 from dotenv import load_dotenv
 from os import getenv
+import logging
+
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 load_dotenv()
 PATH_TO_DB = getenv("PATH_TO_DB")
+logger.info("PATH_TO_DB", PATH_TO_DB)
 engine = create_engine(PATH_TO_DB)
 
 
