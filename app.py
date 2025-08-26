@@ -1,7 +1,7 @@
 # from typing import List, Optional
 
 from flask import Flask
-# from flask_pydantic_api import pydantic_api, apidocs_views
+from flask_pydantic_api import pydantic_api, apidocs_views
 
 
 # from models import (
@@ -15,11 +15,11 @@ from flask import Flask
 
 
 app = Flask(__name__)
-# app.register_blueprint(apidocs_views.blueprint, url_prefix="/api/docs")
+app.register_blueprint(apidocs_views.blueprint, url_prefix="/api/docs")
 
 
-# @pydantic_api(name="Получить список корзин", tags=["Baskets"])
 @app.get("/api/baskets/")
+@pydantic_api(name="Получить список корзин", tags=["Baskets"])
 def get_baskets():
     return {"hello": "world!"}
     # return [
