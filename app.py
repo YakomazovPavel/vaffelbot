@@ -1,4 +1,4 @@
-# from typing import List, Optional
+from typing import List, Optional
 
 from flask import Flask
 from flask_pydantic_api import pydantic_api, apidocs_views
@@ -44,14 +44,12 @@ def get_baskets():
 #     pass
 
 
-# @app.post("/baskets/<int:basket_id>/dishes/<int:dish_id>/")
-# @pydantic_api(name="Получить список корзин", tags=["Baskets"])
-# def create_baskets_dishes(
-#     basket_id: str,
-#     dish_id: str = ...,
-#     body: BasketsBasketIdDishesDishIdPostRequest = None,
-# ) -> BasketDish:
-#     pass
+@app.post("/baskets/<int:basket_id>/dishes/<int:dish_id>/")
+@pydantic_api(
+    name="Получить список корзин", tags=["Baskets"], merge_path_parameters=True
+)
+def create_baskets_dishes(data: BasketsBasketIdDishesDishIdPostRequest) -> BasketDish:
+    return f"basket_id {data.basket_id} dish_id {data.dish_id} user_id {data.user_id}"
 
 
 # @app.delete(
@@ -61,16 +59,17 @@ def get_baskets():
 #     pass
 
 
-# @app.get("/categories/", response_model=List[Category], tags=["Categories"])
-# def get_categories() -> List[Category]:
-#     pass
+@app.get("/api/categories/")
+@pydantic_api(name="Получить список категорий", tags=["Categories"])
+def get_categories() -> List[Category]:
+    pass
 
 
-# @app.get("/dishes/", response_model=List[Dish], tags=["Dishes"])
-# def get_dishes(
-#     category_id: Optional[str] = None, search: Optional[str] = None
-# ) -> List[Dish]:
-#     pass
+@app.get("/dishes/")
+@pydantic_api(name="Получить список категорий", tags=["Dishes"])
+def get_dishes() -> List[Dish]:
+    # category_id: Optional[str] = None, search: Optional[str] = None
+    pass
 
 
 # @app.post("/users/", response_model=User, tags=["Users"])
