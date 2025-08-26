@@ -259,26 +259,14 @@ components:
       properties:
         id:
           type: string
-        name:
+        basket_id:
           type: string
-        description:
-          type: string
-        price:
-          type: number
-        calories:
-          type: number
-        proteins:
-          type: number
-        fats:
-          type: number
-        carbs:
-          type: number
-        weight:
-          type: number
-        photo_url:
-          type: string
-        user_id:
-          type: string
+        dish:
+          type: object
+          $ref: "#/components/schemas/Dish"
+        user:
+          type: object
+          $ref: "#/components/schemas/User"
     BasketDishes:
       type: array
       items:
