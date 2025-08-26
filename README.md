@@ -1,5 +1,7 @@
 # vaffel_tg
 
+https://yakomazovpavel.pythonanywhere.com/api/docs
+
 backend for vaffel_tg bot
 
 ## Запуск проекта
@@ -27,6 +29,7 @@ pip install -r requirements.txt
 ```
 python main.py
 ```
+
 6. Запустить телеграм бота
 
 ```
