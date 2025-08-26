@@ -11,8 +11,12 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 from sqlalchemy.sql import func
+from dotenv import load_dotenv
+from os import getenv
 
-engine = create_engine("sqlite:///vaffel.db")
+load_dotenv()
+PATH_TO_DB = getenv("PATH_TO_DB")
+engine = create_engine(PATH_TO_DB)
 
 
 class Base(DeclarativeBase):
