@@ -21,7 +21,8 @@ logger.setLevel(logging.INFO)
 
 load_dotenv()
 PATH_TO_DB = getenv("PATH_TO_DB")
-logger.info("PATH_TO_DB", PATH_TO_DB)
+logger.error("PATH_TO_DB", PATH_TO_DB)
+print("print PATH_TO_DB", PATH_TO_DB)
 engine = create_engine(PATH_TO_DB)
 
 
