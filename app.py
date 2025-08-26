@@ -18,20 +18,20 @@ app = Flask(__name__)
 app.register_blueprint(apidocs_views.blueprint, url_prefix="/api/docs")
 
 
-@app.get("/api/baskets/")
-@pydantic_api(name="Получить список корзин", tags=["Baskets"])
-def get_baskets():
-    return [
-        Basket(
-            id="",
-            photo_url="",
-            author_id="",
-            name="",
-            is_locked=False,
-            created="",
-            updated="",
-        ).model_dump()
-    ]
+# @app.get("/api/baskets/")
+# @pydantic_api(name="Получить список корзин", tags=["Baskets"])
+# def get_baskets():
+#     return [
+#         Basket(
+#             id="",
+#             photo_url="",
+#             author_id="",
+#             name="",
+#             is_locked=False,
+#             created="",
+#             updated="",
+#         ).model_dump()
+#     ]
 
 
 # /home/YakomazovPavel/projects/vaffelbot
@@ -44,12 +44,14 @@ def get_baskets():
 #     pass
 
 
-@app.post("/baskets/<int:basket_id>/dishes/<int:dish_id>/")
-@pydantic_api(
-    name="Получить список корзин", tags=["Baskets"], merge_path_parameters=True
-)
-def create_baskets_dishes(data: BasketsBasketIdDishesDishIdPostRequest) -> BasketDish:
-    return f"basket_id {data.basket_id} dish_id {data.dish_id} user_id {data.user_id}"
+# @app.post("/api/baskets/<int:basket_id>/dishes/<int:dish_id>/")
+# @pydantic_api(
+#     name="Создать товар в корзине",
+#     tags=["BasketDish"],
+#     merge_path_parameters=True,
+# )
+# def create_baskets_dishes(data: BasketsBasketIdDishesDishIdPostRequest) -> BasketDish:
+#     return f"basket_id {data.basket_id} dish_id {data.dish_id} user_id {data.user_id}"
 
 
 # @app.delete(
@@ -62,14 +64,13 @@ def create_baskets_dishes(data: BasketsBasketIdDishesDishIdPostRequest) -> Baske
 @app.get("/api/categories/")
 @pydantic_api(name="Получить список категорий", tags=["Categories"])
 def get_categories() -> List[Category]:
-    pass
+    return "Category"
 
 
-@app.get("/dishes/")
+@app.get("/api/dishes/")
 @pydantic_api(name="Получить список категорий", tags=["Dishes"])
 def get_dishes() -> List[Dish]:
-    # category_id: Optional[str] = None, search: Optional[str] = None
-    pass
+    return "Dish"
 
 
 # @app.post("/users/", response_model=User, tags=["Users"])
