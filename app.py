@@ -4,14 +4,14 @@ from flask import Flask
 from flask_pydantic_api import pydantic_api, apidocs_views
 
 
-# from models import (
-#     Basket,
-#     BasketDish,
-#     BasketsBasketIdDishesDishIdPostRequest,
-#     Category,
-#     Dish,
-#     User,
-# )
+from models import (
+    Basket,
+    BasketDish,
+    BasketsBasketIdDishesDishIdPostRequest,
+    Category,
+    Dish,
+    User,
+)
 
 
 app = Flask(__name__)
@@ -21,21 +21,21 @@ app.register_blueprint(apidocs_views.blueprint, url_prefix="/api/docs")
 @app.get("/api/baskets/")
 @pydantic_api(name="Получить список корзин", tags=["Baskets"])
 def get_baskets():
-    return {"hello": "world!"}
-    # return [
-    #     Basket(
-    #         id="",
-    #         photo_url="",
-    #         author_id="",
-    #         name="",
-    #         is_locked=False,
-    #         created="",
-    #         updated="",
-    #     ).model_dump()
-    # ]
+    return [
+        Basket(
+            id="",
+            photo_url="",
+            author_id="",
+            name="",
+            is_locked=False,
+            created="",
+            updated="",
+        ).model_dump()
+    ]
 
 
 # /home/YakomazovPavel/projects/vaffelbot
+# /home/YakomazovPavel/vaffelbot/app.py
 
 
 # @app.get("/baskets/<int:basket_id>/dishes/")
