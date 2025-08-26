@@ -1,43 +1,47 @@
-from typing import List, Optional
+# from typing import List, Optional
 
 from flask import Flask
-from flask_pydantic_api import pydantic_api, apidocs_views
+# from flask_pydantic_api import pydantic_api, apidocs_views
 
 
-from models import (
-    Basket,
-    BasketDish,
-    BasketsBasketIdDishesDishIdPostRequest,
-    Category,
-    Dish,
-    User,
-)
+# from models import (
+#     Basket,
+#     BasketDish,
+#     BasketsBasketIdDishesDishIdPostRequest,
+#     Category,
+#     Dish,
+#     User,
+# )
 
 
 app = Flask(__name__)
-app.register_blueprint(apidocs_views.blueprint, url_prefix="/api/docs")
+# app.register_blueprint(apidocs_views.blueprint, url_prefix="/api/docs")
 
 
+# @pydantic_api(name="Получить список корзин", tags=["Baskets"])
 @app.get("/api/baskets/")
-@pydantic_api(name="Получить список корзин", tags=["Baskets"])
-def get_baskets() -> List[Basket]:
-    return [
-        Basket(
-            id="",
-            photo_url="",
-            author_id="",
-            name="",
-            is_locked=False,
-            created="",
-            updated="",
-        ).model_dump()
-    ]
+def get_baskets():
+    return {"hello": "world!"}
+    # return [
+    #     Basket(
+    #         id="",
+    #         photo_url="",
+    #         author_id="",
+    #         name="",
+    #         is_locked=False,
+    #         created="",
+    #         updated="",
+    #     ).model_dump()
+    # ]
 
 
-@app.get("/baskets/<int:basket_id>/dishes/")
-@pydantic_api(name="Получить список корзин", tags=["Baskets"])
-def get_baskets_dishes(id: str) -> List[BasketDish]:
-    pass
+# /home/YakomazovPavel/projects/vaffelbot
+
+
+# @app.get("/baskets/<int:basket_id>/dishes/")
+# @pydantic_api(name="Получить список корзин", tags=["Baskets"])
+# def get_baskets_dishes(id: str) -> List[BasketDish]:
+#     pass
 
 
 # @app.post("/baskets/<int:basket_id>/dishes/<int:dish_id>/")
