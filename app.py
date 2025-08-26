@@ -1,4 +1,5 @@
 from typing import List, Optional
+import logging
 
 from flask import Flask
 from flask_pydantic_api import pydantic_api, apidocs_views
@@ -12,6 +13,11 @@ from models import (
     Dish,
     User,
 )
+
+from database import storage
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 
 app = Flask(__name__)
@@ -64,13 +70,35 @@ app.register_blueprint(apidocs_views.blueprint, url_prefix="/api/docs")
 @app.get("/api/categories/")
 @pydantic_api(name="Получить список категорий", tags=["Categories"])
 def get_categories() -> List[Category]:
-    return "Category"
+    categoryes = storage.get_categoryes()
+    return [Category(id=item.id, name=item.name).model_dump() for item in categoryes]
 
 
 @app.get("/api/dishes/")
 @pydantic_api(name="Получить список блюд", tags=["Dishes"])
 def get_dishes() -> List[Dish]:
-    return "Dish"
+    dishes = storage.get_dishes()
+    # print("dishes", dishes)
+    # print("dishes", dishes[0][1])
+    # print("dishes id", getattr(dishes[0][0], "id", "id"))
+    # print("dishes category_id", getattr(dishes[0][1], "category_id", "category_id"))
+    # return "get_dishes"
+    return [
+        Dish(
+            id=dish.id,
+            category_id=category,
+            name=dish.name,
+            description=dish.description,
+            price=dish.price,
+            calories=dish.calories,
+            proteins=dish.proteins,
+            fats=dish.fats,
+            carbs=dish.carbs,
+            weight=dish.weight,
+            photo_url=dish.photo_url,
+        ).model_dump()
+        for dish, category in dishes
+    ]
 
 
 # @app.post("/users/", response_model=User, tags=["Users"])

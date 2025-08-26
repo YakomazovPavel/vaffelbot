@@ -7,8 +7,9 @@ from sqlalchemy import (
     Integer,
     String,
     create_engine,
+    select,
 )
-from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm import DeclarativeBase, sessionmaker
 from sqlalchemy.sql import func
 
 engine = create_engine("sqlite:///vaffel.db")
@@ -80,6 +81,32 @@ class CategoryDish(Base):
     dish_id = Column(Integer, ForeignKey(Dish.id))
     category_id = Column(Integer, ForeignKey(Category.id))
 
+
+class Storage:
+    def __init__(self):
+        self.session = sessionmaker(bind=engine)()
+
+    def get_categoryes(self) -> list[Category]:
+        statement = select(Category)
+        result = self.session.execute(statement)
+        return result.scalars().all()
+
+    def get_dishes(self) -> list[Dish]:
+        # statement = select(Dish, CategoryDish.category_id).join(
+        #     CategoryDish, Dish.id == CategoryDish.dish_id
+        # )
+        # result = self.session.execute(statement)
+        # print(result)
+        # return result.scalars().all()
+
+        return (
+            self.session.query(Dish, CategoryDish.category_id)
+            .join(CategoryDish, Dish.id == CategoryDish.dish_id)
+            .all()
+        )
+
+
+storage = Storage()
 
 if __name__ == "__main__":
     Base.metadata.create_all(bind=engine)

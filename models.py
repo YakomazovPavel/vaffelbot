@@ -4,13 +4,13 @@ from pydantic import BaseModel, Field
 
 
 class Category(BaseModel):
-    id: Optional[str] = Field(None, example="91a309e9-4ca2-459b-a945-af0bf9222617")
+    id: Optional[int] = Field(None, example=1)
     name: Optional[str] = Field(None, example="Сырные вафли")
 
 
 class Dish(BaseModel):
-    id: Optional[str] = None
-    category_id: Optional[str] = None
+    id: Optional[int] = None
+    category_id: Optional[int] = None
     name: Optional[str] = None
     description: Optional[str] = None
     price: Optional[float] = None
