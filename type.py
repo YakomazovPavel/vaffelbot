@@ -1,14 +1,12 @@
-from pydantic import BaseModel
+from typing import Optional
+from pydantic import BaseModel, Field
 
-class Dish(BaseModel):
-    id: str
-    category_id: str
-    name: str
-    description: str
-    price: float
-    calories: float
-    proteins: float
-    fats: float
-    carbs: float
-    weight: float
-    photo_url: str
+
+class CreateUserRequest(BaseModel):
+    username: Optional[str] = Field(None, example="@pavel")
+    first_name: Optional[str] = Field(None, example="pavel")
+    last_name: Optional[str] = Field(None, example="durov")
+    photo_url: Optional[str] = Field(
+        None,
+        example="https://pic.rutube.ru/video/fa/17/fa1763b889c5e26146174f8878315143.jpg",
+    )

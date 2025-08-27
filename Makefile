@@ -5,3 +5,7 @@ push:
 
 run:
 	gunicorn app:app --log-level debug
+
+drop:
+	rm vaffel.db 
+	touch vaffel.db

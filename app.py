@@ -14,6 +14,8 @@ from models import (
     User,
 )
 
+from type import CreateUserRequest
+
 from database import storage
 
 logger = logging.getLogger(__name__)
@@ -24,20 +26,40 @@ app = Flask(__name__)
 app.register_blueprint(apidocs_views.blueprint, url_prefix="/api/docs")
 
 
-# @app.get("/api/baskets/")
-# @pydantic_api(name="Получить список корзин", tags=["Baskets"])
-# def get_baskets():
-#     return [
-#         Basket(
-#             id="",
-#             photo_url="",
-#             author_id="",
-#             name="",
-#             is_locked=False,
-#             created="",
-#             updated="",
-#         ).model_dump()
-#     ]
+@app.get("/api/baskets/")
+@pydantic_api(name="Получить список корзин", tags=["Baskets"])
+def get_baskets():
+    categoryes = storage.get_baskets()
+    return [
+        Basket(
+            id=basket.id,
+            photo_url=basket.photo_url,
+            author_id=basket.author_id,
+            name=basket.name,
+            is_locked=basket.is_locked,
+            created=basket.created,
+            updated=basket.updated,
+        ).model_dump()
+        for basket in categoryes
+    ]
+
+
+@app.get("/api/baskets/")
+@pydantic_api(name="Создать корзину", tags=["Baskets"])
+def create_basket():
+    categoryes = storage.create_baskets()
+    return [
+        Basket(
+            id=basket.id,
+            photo_url=basket.photo_url,
+            author_id=basket.author_id,
+            name=basket.name,
+            is_locked=basket.is_locked,
+            created=basket.created,
+            updated=basket.updated,
+        ).model_dump()
+        for basket in categoryes
+    ]
 
 
 # /home/YakomazovPavel/projects/vaffelbot
@@ -78,11 +100,6 @@ def get_categories() -> List[Category]:
 @pydantic_api(name="Получить список блюд", tags=["Dishes"])
 def get_dishes() -> List[Dish]:
     dishes = storage.get_dishes()
-    # print("dishes", dishes)
-    # print("dishes", dishes[0][1])
-    # print("dishes id", getattr(dishes[0][0], "id", "id"))
-    # print("dishes category_id", getattr(dishes[0][1], "category_id", "category_id"))
-    # return "get_dishes"
     return [
         Dish(
             id=dish.id,
@@ -101,9 +118,23 @@ def get_dishes() -> List[Dish]:
     ]
 
 
-# @app.post("/users/", response_model=User, tags=["Users"])
-# def create_user(body: User = None) -> User:
-#     pass
+@app.post("/users/")
+@pydantic_api(name="Создать пользователя", tags=["Users"])
+def create_user(body: CreateUserRequest) -> User:
+    user = storage.create_user(
+        username=body.username,
+        first_name=body.first_name,
+        last_name=body.last_name,
+        photo_url=body.photo_url,
+    )
+
+    return User(
+        id=user.id,
+        username=user.username,
+        first_name=user.first_name,
+        last_name=user.last_name,
+        photo_url=user.photo_url,
+    )
 
 
 # @app.get("/users/{id}/", response_model=User, tags=["Users"])

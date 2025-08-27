@@ -15,7 +15,6 @@ from dotenv import load_dotenv
 from os import getenv
 import logging
 
-
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
@@ -115,6 +114,43 @@ class Storage:
             .join(CategoryDish, Dish.id == CategoryDish.dish_id)
             .all()
         )
+
+    def get_baskets(self) -> list[Basket]:
+        statement = select(Basket)
+        result = self.session.execute(statement)
+        return result.scalars().all()
+
+    def create_baskets(
+        self,
+        photo_url: str | None = None,
+        author_id: str | None = None,
+        name: str | None = None,
+    ) -> Basket:
+        basket = Basket(
+            photo_url=photo_url,
+            author_id=author_id,
+            name=name,
+        )
+        self.session.add(basket)
+        self.session.commit()
+        return basket
+
+    def create_user(
+        self,
+        username: str | None = None,
+        first_name: str | None = None,
+        last_name: str | None = None,
+        photo_url: str | None = None,
+    ) -> User:
+        user = User(
+            username=username,
+            first_name=first_name,
+            last_name=last_name,
+            photo_url=photo_url,
+        )
+        self.session.add(user)
+        self.session.commit()
+        return user
 
 
 storage = Storage()

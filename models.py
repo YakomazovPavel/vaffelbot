@@ -23,7 +23,7 @@ class Dish(BaseModel):
 
 
 class User(BaseModel):
-    id: Optional[str] = Field(None, example="123123")
+    id: Optional[int] = Field(None, example="123123")
     username: Optional[str] = Field(None, example="@pavel")
     first_name: Optional[str] = Field(None, example="pavel")
     last_name: Optional[str] = Field(None, example="durov")
