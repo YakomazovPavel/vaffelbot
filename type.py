@@ -10,3 +10,13 @@ class CreateUserRequest(BaseModel):
         None,
         example="https://pic.rutube.ru/video/fa/17/fa1763b889c5e26146174f8878315143.jpg",
     )
+    telegram_id: str
+
+
+class CreateBasketRequest(BaseModel):
+    photo_url: Optional[str] = Field(
+        None,
+        example="https://pic.rutube.ru/video/fa/17/fa1763b889c5e26146174f8878315143.jpg",
+    )
+    author_id: int = Field(example=1)
+    name: str = Field(example="name")

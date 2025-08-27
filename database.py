@@ -36,6 +36,7 @@ class User(Base):
     first_name = Column(String, nullable=True)
     last_name = Column(String, nullable=True)
     photo_url = Column(String, nullable=True)
+    telegram_id = Column(String, nullable=False, unique=True)
 
 
 class Basket(Base):
@@ -137,6 +138,7 @@ class Storage:
 
     def create_user(
         self,
+        telegram_id: str,
         username: str | None = None,
         first_name: str | None = None,
         last_name: str | None = None,
@@ -147,10 +149,14 @@ class Storage:
             first_name=first_name,
             last_name=last_name,
             photo_url=photo_url,
+            telegram_id=telegram_id,
         )
         self.session.add(user)
         self.session.commit()
         return user
+
+    def get_telegram_user(self, telegram_id) -> User | None:
+        return self.session.query(User).filter(User.telegram_id == telegram_id).first()
 
 
 storage = Storage()

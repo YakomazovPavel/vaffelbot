@@ -69,6 +69,6 @@ def parse_category_dishes(menu: dict):
 
 with open("menu.json", "r") as file:
     menu = json.loads(file.read())
-    # parse_dishes(menu)
-    # parse_categories(menu)
-    # parse_category_dishes(menu)
+    parse_dishes(menu)
+    parse_categories(menu)
+    parse_category_dishes(menu)

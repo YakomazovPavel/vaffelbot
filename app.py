@@ -121,12 +121,15 @@ def get_dishes() -> List[Dish]:
 @app.post("/users/")
 @pydantic_api(name="Создать пользователя", tags=["Users"])
 def create_user(body: CreateUserRequest) -> User:
-    user = storage.create_user(
-        username=body.username,
-        first_name=body.first_name,
-        last_name=body.last_name,
-        photo_url=body.photo_url,
-    )
+    user = storage.get_telegram_user(body.telegram_id)
+    if not user:
+        user = storage.create_user(
+            telegram_id=body.telegram_id,
+            username=body.username,
+            first_name=body.first_name,
+            last_name=body.last_name,
+            photo_url=body.photo_url,
+        )
 
     return User(
         id=user.id,
@@ -134,6 +137,7 @@ def create_user(body: CreateUserRequest) -> User:
         first_name=user.first_name,
         last_name=user.last_name,
         photo_url=user.photo_url,
+        telegram_id=user.telegram_id,
     )
 
 

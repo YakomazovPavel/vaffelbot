@@ -9,3 +9,5 @@ run:
 drop:
 	rm vaffel.db 
 	touch vaffel.db
+	python database.py
+	python parser.py
