@@ -62,8 +62,11 @@ class BasketDish(BaseModel):
 
 class BasketsBasketIdDishesDishIdPostRequest(BaseModel):
     user_id: int
-    dish_id: int
-    basket_id: int
+    # dish_id: int
+    # basket_id: int
 
 
 class CategoryList(RootModel[List[Category]]): ...
+
+
+class BasketDishList(RootModel[List[BasketDish]]): ...

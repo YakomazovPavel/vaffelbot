@@ -1,3 +1,4 @@
+from typing import List, Tuple
 from sqlalchemy import (
     Boolean,
     Column,
@@ -14,6 +15,7 @@ from sqlalchemy.sql import func
 from dotenv import load_dotenv
 from os import getenv
 import logging
+from models import BasketDish as BasketDishModel, Dish as DishModel
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -23,6 +25,9 @@ PATH_TO_DB = getenv(
     "PATH_TO_DB", default="sqlite:////home/YakomazovPavel/vaffelbot/vaffel.db"
 )
 engine = create_engine(PATH_TO_DB)
+
+
+# https://docs.sqlalchemy.org/en/20/orm/basic_relationships.html#association-object
 
 
 class Base(DeclarativeBase):
@@ -97,12 +102,12 @@ class Storage:
     def __init__(self):
         self.session = sessionmaker(bind=engine)()
 
-    def get_categoryes(self) -> list[Category]:
+    def get_categoryes(self) -> List[Category]:
         statement = select(Category)
         result = self.session.execute(statement)
         return result.scalars().all()
 
-    def get_dishes(self) -> list[Dish]:
+    def get_dishes(self) -> List[Dish]:
         # statement = select(Dish, CategoryDish.category_id).join(
         #     CategoryDish, Dish.id == CategoryDish.dish_id
         # )
@@ -116,7 +121,7 @@ class Storage:
             .all()
         )
 
-    def get_baskets(self) -> list[Basket]:
+    def get_baskets(self) -> List[Basket]:
         statement = select(Basket)
         result = self.session.execute(statement)
         return result.scalars().all()
@@ -172,7 +177,7 @@ class Storage:
         basket_id,
         user_id,
         dish_id,
-    ) -> BasketDish:
+    ) -> Tuple[BasketDish, Dish]:
         basket_dish = BasketDish(
             basket_id=basket_id,
             user_id=user_id,
@@ -180,7 +185,35 @@ class Storage:
         )
         self.session.add(basket_dish)
         self.session.commit()
-        return basket_dish
+        dish = self.get_dish_by_id(id=dish_id)
+
+        return basket_dish, dish
+
+    def get_basket_dishes(self, basket_id) -> List[BasketDishModel]:
+        return [
+            BasketDishModel(
+                id=basket_dish.id,
+                user_id=basket_dish.user_id,
+                basket_id=basket_dish.basket_id,
+                dish=DishModel(
+                    id=dish.id,
+                    category_id=dish.category_id,
+                    name=dish.name,
+                    description=dish.description,
+                    price=dish.price,
+                    calories=dish.calories,
+                    proteins=dish.proteins,
+                    fats=dish.fats,
+                    carbs=dish.carbs,
+                    weight=dish.weight,
+                    photo_url=dish.photo_url,
+                ),
+            )
+            for basket_dish, dish in self.session.query(BasketDish, Dish)
+            .filter(BasketDish.basket_id == basket_id)
+            .join(Dish, BasketDish.dish_id == Dish.id)
+            .all()
+        ]
 
 
 storage = Storage()

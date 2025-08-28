@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List
 import logging
 
 from flask import Flask, Response
@@ -13,6 +13,7 @@ from models import (
     Dish,
     User,
     CategoryList,
+    BasketDishList,
 )
 
 from type import CreateUserRequest, CreateBasketRequest
@@ -97,33 +98,34 @@ def create_basket(body: CreateBasketRequest) -> Basket:
 #     pass
 
 
-# @app.get("/api/baskets/<int:basket_id>/dishes/")
-# @pydantic_api(
-#     name="Получить товары из корзины",
-#     tags=["BasketDish"],
-# )
-# def create_baskets_dishes(basket_id: int) -> List[BasketDish]:
-#     basket = storage.get_basket_by_id(id=basket_id)
-#     if basket:
-#         basket_dishes = storage.get_basket_dishes(basket_id=basket_id)
-
-#     else:
-#         return Response(f"Корзина {basket_id} не найдена", status=400)
+@app.get("/api/baskets/<int:basket_id>/dishes/")
+@pydantic_api(
+    name="Получить товары из корзины",
+    tags=["BasketDish"],
+)
+def get_baskets_dishes(basket_id: int) -> BasketDishList:
+    basket = storage.get_basket_by_id(id=basket_id)
+    if basket:
+        basket_dishes = storage.get_basket_dishes(basket_id=basket_id)
+        return BasketDishList(basket_dishes)
+    else:
+        return Response(f"Корзина {basket_id} не найдена", status=400)
 
 
 @app.post("/api/baskets/<int:basket_id>/dishes/<int:dish_id>/")
 @pydantic_api(
     name="Создать товар в корзине",
     tags=["BasketDish"],
-    merge_path_parameters=True,
 )
-def create_baskets_dishes(body: BasketsBasketIdDishesDishIdPostRequest) -> BasketDish:
-    basket = storage.get_basket_by_id(id=body.basket_id)
+def create_baskets_dishes(
+    basket_id: int, dish_id: int, body: BasketsBasketIdDishesDishIdPostRequest
+) -> BasketDish:
+    basket = storage.get_basket_by_id(id=basket_id)
+    dish = storage.get_dish_by_id(id=dish_id)
     user = storage.get_user_by_id(id=body.user_id)
-    dish = storage.get_dish_by_id(id=body.dish_id)
 
     if basket and user and dish:
-        basket_dish = storage.create_basket_dish(
+        basket_dish, dish = storage.create_basket_dish(
             basket_id=basket.id,
             user_id=user.id,
             dish_id=dish.id,
@@ -132,13 +134,25 @@ def create_baskets_dishes(body: BasketsBasketIdDishesDishIdPostRequest) -> Baske
             id=basket_dish.id,
             user_id=user.id,
             basket_id=basket.id,
-            dish=dish,
+            dish=Dish(
+                id=dish.id,
+                category_id=dish.category_id,
+                name=dish.name,
+                description=dish.description,
+                price=dish.price,
+                calories=dish.calories,
+                proteins=dish.proteins,
+                fats=dish.fats,
+                carbs=dish.carbs,
+                weight=dish.weight,
+                photo_url=dish.photo_url,
+            ),
         )
     else:
         errors = []
-        basket is None and errors.append(f"Корзина {body.basket_id} не найдена")
+        basket is None and errors.append(f"Корзина {basket_id} не найдена")
         user is None and errors.append(f"Польователь {body.user_id} не найден")
-        dish is None and errors.append(f"Блюдо {body.dish_id} не найдено")
+        dish is None and errors.append(f"Блюдо {dish_id} не найдено")
         message = ", ".join(errors)
         return Response(message, status=400)
 
