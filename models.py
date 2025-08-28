@@ -1,7 +1,7 @@
 from typing import Optional
 from datetime import datetime
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_serializer
 
 
 class Category(BaseModel):
@@ -43,6 +43,14 @@ class Basket(BaseModel):
     is_locked: bool
     created: datetime
     updated: datetime
+
+    @field_serializer("created")
+    def created_serializer(self, dt: datetime) -> str:
+        return dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    @field_serializer("updated")
+    def updated_serializer(self, dt: datetime) -> str:
+        return dt.strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 class BasketDish(BaseModel):
