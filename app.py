@@ -12,11 +12,13 @@ from models import (
     Category,
     Dish,
     User,
+    CategoryList,
 )
 
 from type import CreateUserRequest, CreateBasketRequest
 
 from database import storage
+
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -82,7 +84,7 @@ def create_basket(body: CreateBasketRequest) -> Basket:
             updated=basket.updated,
         )
     else:
-        return Response(f"Пользователя с id={body.author_id} не существует", status=400)
+        return Response(f"Пользователя {body.author_id} не найден", status=400)
 
 
 # /home/YakomazovPavel/projects/vaffelbot
@@ -95,14 +97,50 @@ def create_basket(body: CreateBasketRequest) -> Basket:
 #     pass
 
 
-# @app.post("/api/baskets/<int:basket_id>/dishes/<int:dish_id>/")
+# @app.get("/api/baskets/<int:basket_id>/dishes/")
 # @pydantic_api(
-#     name="Создать товар в корзине",
+#     name="Получить товары из корзины",
 #     tags=["BasketDish"],
-#     merge_path_parameters=True,
 # )
-# def create_baskets_dishes(data: BasketsBasketIdDishesDishIdPostRequest) -> BasketDish:
-#     return f"basket_id {data.basket_id} dish_id {data.dish_id} user_id {data.user_id}"
+# def create_baskets_dishes(basket_id: int) -> List[BasketDish]:
+#     basket = storage.get_basket_by_id(id=basket_id)
+#     if basket:
+#         basket_dishes = storage.get_basket_dishes(basket_id=basket_id)
+
+#     else:
+#         return Response(f"Корзина {basket_id} не найдена", status=400)
+
+
+@app.post("/api/baskets/<int:basket_id>/dishes/<int:dish_id>/")
+@pydantic_api(
+    name="Создать товар в корзине",
+    tags=["BasketDish"],
+    merge_path_parameters=True,
+)
+def create_baskets_dishes(body: BasketsBasketIdDishesDishIdPostRequest) -> BasketDish:
+    basket = storage.get_basket_by_id(id=body.basket_id)
+    user = storage.get_user_by_id(id=body.user_id)
+    dish = storage.get_dish_by_id(id=body.dish_id)
+
+    if basket and user and dish:
+        basket_dish = storage.create_basket_dish(
+            basket_id=basket.id,
+            user_id=user.id,
+            dish_id=dish.id,
+        )
+        return BasketDish(
+            id=basket_dish.id,
+            user_id=user.id,
+            basket_id=basket.id,
+            dish=dish,
+        )
+    else:
+        errors = []
+        basket is None and errors.append(f"Корзина {body.basket_id} не найдена")
+        user is None and errors.append(f"Польователь {body.user_id} не найден")
+        dish is None and errors.append(f"Блюдо {body.dish_id} не найдено")
+        message = ", ".join(errors)
+        return Response(message, status=400)
 
 
 # @app.delete(
@@ -114,9 +152,9 @@ def create_basket(body: CreateBasketRequest) -> Basket:
 
 @app.get("/api/categories/")
 @pydantic_api(name="Получить список категорий", tags=["Categories"])
-def get_categories() -> List[Category]:
+def get_categories() -> CategoryList:
     categoryes = storage.get_categoryes()
-    return [Category(id=item.id, name=item.name).model_dump() for item in categoryes]
+    return CategoryList(Category(id=item.id, name=item.name) for item in categoryes)
 
 
 @app.get("/api/dishes/")

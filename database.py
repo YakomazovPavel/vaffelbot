@@ -164,6 +164,24 @@ class Storage:
     def get_user_by_id(self, id) -> User | None:
         return self.session.query(User).filter(User.id == id).first()
 
+    def get_dish_by_id(self, id) -> User | None:
+        return self.session.query(Dish).filter(Dish.id == id).first()
+
+    def create_basket_dish(
+        self,
+        basket_id,
+        user_id,
+        dish_id,
+    ) -> BasketDish:
+        basket_dish = BasketDish(
+            basket_id=basket_id,
+            user_id=user_id,
+            dish_id=dish_id,
+        )
+        self.session.add(basket_dish)
+        self.session.commit()
+        return basket_dish
+
 
 storage = Storage()
 

@@ -1,7 +1,7 @@
-from typing import Optional
+from typing import List, Optional
 from datetime import datetime
 
-from pydantic import BaseModel, Field, field_serializer
+from pydantic import BaseModel, Field, field_serializer, RootModel
 
 
 class Category(BaseModel):
@@ -54,20 +54,16 @@ class Basket(BaseModel):
 
 
 class BasketDish(BaseModel):
-    id: Optional[str] = None
-    name: Optional[str] = None
-    description: Optional[str] = None
-    price: Optional[float] = None
-    calories: Optional[float] = None
-    proteins: Optional[float] = None
-    fats: Optional[float] = None
-    carbs: Optional[float] = None
-    weight: Optional[float] = None
-    photo_url: Optional[str] = None
-    user_id: Optional[str] = None
+    id: int
+    user_id: int
+    basket_id: int
+    dish: Dish
 
 
 class BasketsBasketIdDishesDishIdPostRequest(BaseModel):
-    user_id: Optional[str] = None
-    dish_id: Optional[str] = None
-    basket_id: Optional[str] = None
+    user_id: int
+    dish_id: int
+    basket_id: int
+
+
+class CategoryList(RootModel[List[Category]]): ...
