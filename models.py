@@ -1,4 +1,5 @@
 from typing import Optional
+from datetime import datetime
 
 from pydantic import BaseModel, Field
 
@@ -35,13 +36,13 @@ class User(BaseModel):
 
 
 class Basket(BaseModel):
-    id: Optional[str] = None
+    id: int
     photo_url: Optional[str] = None
-    author_id: Optional[str] = None
-    name: Optional[str] = None
-    is_locked: Optional[bool] = None
-    created: Optional[str] = None
-    updated: Optional[str] = None
+    author_id: int
+    name: str
+    is_locked: bool
+    created: datetime
+    updated: datetime
 
 
 class BasketDish(BaseModel):

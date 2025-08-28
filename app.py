@@ -1,7 +1,7 @@
 from typing import List, Optional
 import logging
 
-from flask import Flask
+from flask import Flask, Response
 from flask_pydantic_api import pydantic_api, apidocs_views
 
 
@@ -14,7 +14,7 @@ from models import (
     User,
 )
 
-from type import CreateUserRequest
+from type import CreateUserRequest, CreateBasketRequest
 
 from database import storage
 
@@ -24,6 +24,24 @@ logger.setLevel(logging.INFO)
 
 app = Flask(__name__)
 app.register_blueprint(apidocs_views.blueprint, url_prefix="/api/docs")
+
+
+@app.get("/api/baskets/<int:id>")
+@pydantic_api(name="Получить корзину", tags=["Baskets"])
+def get_basket(id: int):
+    basket = storage.get_basket_by_id(id=id)
+    if basket:
+        return Basket(
+            id=basket.id,
+            photo_url=basket.photo_url,
+            author_id=basket.author_id,
+            name=basket.name,
+            is_locked=basket.is_locked,
+            created=basket.created,
+            updated=basket.updated,
+        )
+    else:
+        return Response(status=404)
 
 
 @app.get("/api/baskets/")
@@ -44,12 +62,17 @@ def get_baskets():
     ]
 
 
-@app.get("/api/baskets/")
+@app.post("/api/baskets/")
 @pydantic_api(name="Создать корзину", tags=["Baskets"])
-def create_basket():
-    categoryes = storage.create_baskets()
-    return [
-        Basket(
+def create_basket(body: CreateBasketRequest) -> Basket:
+    user = storage.get_user_by_id(id=body.author_id)
+    if user:
+        basket = storage.create_basket(
+            name=body.name,
+            author_id=body.author_id,
+            photo_url=body.photo_url,
+        )
+        return Basket(
             id=basket.id,
             photo_url=basket.photo_url,
             author_id=basket.author_id,
@@ -57,9 +80,9 @@ def create_basket():
             is_locked=basket.is_locked,
             created=basket.created,
             updated=basket.updated,
-        ).model_dump()
-        for basket in categoryes
-    ]
+        )
+    else:
+        return Response(f"Пользователя с id={body.author_id} не существует", status=400)
 
 
 # /home/YakomazovPavel/projects/vaffelbot

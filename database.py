@@ -121,16 +121,16 @@ class Storage:
         result = self.session.execute(statement)
         return result.scalars().all()
 
-    def create_baskets(
+    def create_basket(
         self,
+        name: str,
+        author_id: str,
         photo_url: str | None = None,
-        author_id: str | None = None,
-        name: str | None = None,
     ) -> Basket:
         basket = Basket(
-            photo_url=photo_url,
-            author_id=author_id,
             name=name,
+            author_id=author_id,
+            photo_url=photo_url,
         )
         self.session.add(basket)
         self.session.commit()
@@ -157,6 +157,12 @@ class Storage:
 
     def get_telegram_user(self, telegram_id) -> User | None:
         return self.session.query(User).filter(User.telegram_id == telegram_id).first()
+
+    def get_basket_by_id(self, id) -> Basket | None:
+        return self.session.query(Basket).filter(Basket.id == id).first()
+
+    def get_user_by_id(self, id) -> User | None:
+        return self.session.query(User).filter(User.id == id).first()
 
 
 storage = Storage()
