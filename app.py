@@ -1,7 +1,6 @@
-from typing import List
 import logging
 
-from flask import Flask, Response
+from flask import Flask, Response, request
 from flask_pydantic_api import pydantic_api, apidocs_views
 
 
@@ -15,11 +14,14 @@ from models import (
     CategoryListModel,
     BasketDishListModel,
     DishListModel,
+    BasketListModel,
+    GetBasketListRequestModel,
 )
 
 from type import CreateUserRequest, CreateBasketRequest
 
 from storage import storage
+from middleware import CustomWSGIMiddleware
 
 
 logger = logging.getLogger(__name__)
@@ -28,11 +30,15 @@ logger.setLevel(logging.INFO)
 
 app = Flask(__name__)
 app.register_blueprint(apidocs_views.blueprint, url_prefix="/api/docs")
+# app.before_request(authentication_middleware)
+
+app.wsgi_app = CustomWSGIMiddleware(app.wsgi_app)
 
 
 @app.get("/api/baskets/<int:id>")
 @pydantic_api(name="Получить корзину", tags=["Baskets"])
-def get_basket(id: int):
+def get_basket(id: int) -> BasketModel:
+    # print(f"request.user {request.user}")
     basket = storage.get_basket_by_id(id=id)
     if basket:
         return BasketModel(
@@ -48,28 +54,23 @@ def get_basket(id: int):
         return Response(status=404)
 
 
-@app.get("/api/baskets/")
-@pydantic_api(name="Получить список корзин", tags=["Baskets"])
-def get_baskets():
-    categoryes = storage.get_baskets()
-    return [
-        BasketModel(
-            id=basket.id,
-            photo_url=basket.photo_url,
-            author_id=basket.author_id,
-            name=basket.name,
-            is_locked=basket.is_locked,
-            created=basket.created,
-            updated=basket.updated,
-        ).model_dump()
-        for basket in categoryes
-    ]
+@app.get("/api/user/<int:user_id>/baskets/")
+@pydantic_api(
+    name="Получить список корзин",
+    tags=["Baskets"],  # , merge_path_parameters=True
+)
+def get_baskets(user_id: int) -> BasketListModel:
+    is_user = storage.check_user_id(id=user_id)
+    if is_user:
+        return storage.get_baskets(user_id=user_id)
+    else:
+        return Response(f"Пользователя {user_id} не найден", status=400)
 
 
 @app.post("/api/baskets/")
 @pydantic_api(name="Создать корзину", tags=["Baskets"])
 def create_basket(body: CreateBasketRequest) -> BasketModel:
-    is_user = storage.check_user_by_id(id=body.author_id)
+    is_user = storage.check_user_id(id=body.author_id)
     if is_user:
         basket = storage.create_basket(
             name=body.name,

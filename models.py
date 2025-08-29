@@ -53,6 +53,9 @@ class BasketModel(BaseModel):
         return dt.strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+class BasketListModel(RootModel[List[BasketModel]]): ...
+
+
 class BasketDishModel(BaseModel):
     id: int
     user: UserModel
@@ -75,4 +78,5 @@ class CategoryListModel(RootModel[List[CategoryModel]]): ...
 class DishListModel(RootModel[List[DishModel]]): ...
 
 
-class BasketDishListModel(RootModel[List[BasketDishModel]]): ...
+class GetBasketListRequestModel(BaseModel):
+    user_id: int

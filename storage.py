@@ -1,4 +1,3 @@
-from sqlalchemy import select
 from database import (
     engine,
     User,
@@ -9,8 +8,6 @@ from database import (
     Category,
 )
 from sqlalchemy.orm import sessionmaker
-from typing import List
-from typing import Tuple
 
 from models import (
     CategoryModel,
@@ -21,6 +18,7 @@ from models import (
     CategoryListModel,
     BasketDishListModel,
     DishListModel,
+    BasketListModel,
 )
 
 
@@ -66,10 +64,21 @@ class Storage:
             ]
         )
 
-    def get_baskets(self) -> List[Basket]:
-        statement = select(Basket)
-        result = self.session.execute(statement)
-        return result.scalars().all()
+    def get_baskets(self, user_id) -> BasketListModel:
+        return BasketListModel(
+            [
+                BasketModel(
+                    id=basket.id,
+                    photo_url=basket.photo_url,
+                    author_id=basket.author_id,
+                    name=basket.name,
+                    is_locked=basket.is_locked,
+                    created=basket.created,
+                    updated=basket.updated,
+                )
+                for basket in self.session.get(User, user_id).baskets
+            ]
+        )
 
     def create_basket(
         self,
@@ -84,6 +93,10 @@ class Storage:
         )
         self.session.add(basket)
         self.session.commit()
+        self.create_basket_user(
+            basket_id=basket.id,
+            user_id=author_id,
+        )
         return BasketModel(
             id=basket.id,
             photo_url=basket.photo_url,
@@ -93,6 +106,14 @@ class Storage:
             created=basket.created,
             updated=basket.updated,
         )
+
+    def create_basket_user(self, basket_id, user_id) -> None:
+        basket_user = BasketUser(
+            basket_id=basket_id,
+            user_id=user_id,
+        )
+        self.session.add(basket_user)
+        self.session.commit()
 
     def create_user(
         self,
@@ -135,7 +156,7 @@ class Storage:
     def get_basket_by_id(self, id) -> Basket | None:
         return self.session.query(Basket).filter(Basket.id == id).first()
 
-    def check_user_by_id(self, id) -> bool:
+    def check_user_id(self, id) -> bool:
         return bool(self.session.query(User.id).filter(User.id == id).first())
 
     def get_user_by_id(self, id) -> UserModel | None:
