@@ -1,6 +1,6 @@
 import json
 from sqlalchemy.orm import Session
-from database import engine, Dish, Category, CategoryDish
+from database import engine, Dish, Category
 
 
 def parse_dishes(menu: dict):
@@ -19,6 +19,7 @@ def parse_dishes(menu: dict):
                 carbs=item.get("carbs", None),
                 weight=item.get("weight", None),
                 photo_url=item.get("photo", {}).get("webp", ""),
+                category_id=item.get("categoryId", None),
             )
         )
 
@@ -47,28 +48,28 @@ def parse_categories(menu: dict):
         session.commit()
 
 
-def parse_category_dishes(menu: dict):
-    category_dishes = []
-    for item in menu["dishes"]:
-        item: dict
-        category_id = item.get("categoryId", None)
-        if category_id is not None:
-            category_dishes.append(
-                CategoryDish(
-                    dish_id=item.get("id", None),
-                    category_id=category_id,
-                )
-            )
+# def parse_category_dishes(menu: dict):
+#     category_dishes = []
+#     for item in menu["dishes"]:
+#         item: dict
+#         category_id = item.get("categoryId", None)
+#         if category_id is not None:
+#             category_dishes.append(
+#                 CategoryDish(
+#                     dish_id=item.get("id", None),
+#                     category_id=category_id,
+#                 )
+#             )
 
-    print(len(category_dishes))
+#     print(len(category_dishes))
 
-    with Session(engine) as session:
-        session.bulk_save_objects(category_dishes)
-        session.commit()
+#     with Session(engine) as session:
+#         session.bulk_save_objects(category_dishes)
+#         session.commit()
 
 
 with open("menu.json", "r") as file:
     menu = json.loads(file.read())
     parse_dishes(menu)
     parse_categories(menu)
-    parse_category_dishes(menu)
+    # parse_category_dishes(menu)

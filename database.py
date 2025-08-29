@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List
 from sqlalchemy import (
     Boolean,
     Column,
@@ -8,14 +8,17 @@ from sqlalchemy import (
     Integer,
     String,
     create_engine,
-    select,
 )
-from sqlalchemy.orm import DeclarativeBase, sessionmaker
+from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.sql import func
 from dotenv import load_dotenv
 from os import getenv
 import logging
-from models import BasketDish as BasketDishModel, Dish as DishModel
+
+from sqlalchemy.orm import Mapped
+from sqlalchemy.orm import mapped_column
+from sqlalchemy.orm import relationship
+
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -42,13 +45,20 @@ class User(Base):
     last_name = Column(String, nullable=True)
     photo_url = Column(String, nullable=True)
     telegram_id = Column(String, nullable=False, unique=True)
+    baskets: Mapped[List["Basket"]] = relationship(
+        back_populates="users", secondary="basket_user"
+    )
 
 
 class Basket(Base):
     __tablename__ = "basket"
     id = Column(Integer, primary_key=True)
     photo_url = Column(String)
-    author_id = Column(Integer, ForeignKey(User.id))
+    author_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
+    users: Mapped[List["User"]] = relationship(
+        back_populates="baskets",
+        secondary="basket_user",
+    )
     name = Column(String)
     is_locked = Column(Boolean, default=False)
     created = Column(DateTime, default=func.now())
@@ -57,9 +67,20 @@ class Basket(Base):
 
 class BasketUser(Base):
     __tablename__ = "basket_user"
+    basket_id: Mapped[int] = mapped_column(ForeignKey("basket.id"), primary_key=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id"), primary_key=True)
+
+
+class BasketDish(Base):
+    __tablename__ = "basket_dish"
     id = Column(Integer, primary_key=True, autoincrement=True)
-    basket_id = Column(Integer, ForeignKey(Basket.id))
-    user_id = Column(Integer, ForeignKey(User.id))
+    basket_id: Mapped[int] = mapped_column(ForeignKey("basket.id"))
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
+    dish_id: Mapped[int] = mapped_column(ForeignKey("dish.id"))
+    basket: Mapped["Basket"] = relationship()
+    user: Mapped["User"] = relationship()
+    dish: Mapped["Dish"] = relationship()
+    created = Column(DateTime, default=func.now())
 
 
 class Dish(Base):
@@ -74,15 +95,8 @@ class Dish(Base):
     carbs = Column(Float, nullable=True)
     weight = Column(Float, nullable=True)
     photo_url = Column(String, nullable=True)
-
-
-class BasketDish(Base):
-    __tablename__ = "basket_dish"
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    basket_id = Column(Integer, ForeignKey(Basket.id))
-    user_id = Column(Integer, ForeignKey(User.id))
-    dish_id = Column(Integer, ForeignKey(Dish.id))
-    created = Column(DateTime, default=func.now())
+    category_id: Mapped[int] = mapped_column(ForeignKey("category.id"))
+    category: Mapped["Category"] = relationship()
 
 
 class Category(Base):
@@ -90,133 +104,6 @@ class Category(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
 
-
-class CategoryDish(Base):
-    __tablename__ = "category_dish"
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    dish_id = Column(Integer, ForeignKey(Dish.id))
-    category_id = Column(Integer, ForeignKey(Category.id))
-
-
-class Storage:
-    def __init__(self):
-        self.session = sessionmaker(bind=engine)()
-
-    def get_categoryes(self) -> List[Category]:
-        statement = select(Category)
-        result = self.session.execute(statement)
-        return result.scalars().all()
-
-    def get_dishes(self) -> List[Dish]:
-        # statement = select(Dish, CategoryDish.category_id).join(
-        #     CategoryDish, Dish.id == CategoryDish.dish_id
-        # )
-        # result = self.session.execute(statement)
-        # print(result)
-        # return result.scalars().all()
-
-        return (
-            self.session.query(Dish, CategoryDish.category_id)
-            .join(CategoryDish, Dish.id == CategoryDish.dish_id)
-            .all()
-        )
-
-    def get_baskets(self) -> List[Basket]:
-        statement = select(Basket)
-        result = self.session.execute(statement)
-        return result.scalars().all()
-
-    def create_basket(
-        self,
-        name: str,
-        author_id: str,
-        photo_url: str | None = None,
-    ) -> Basket:
-        basket = Basket(
-            name=name,
-            author_id=author_id,
-            photo_url=photo_url,
-        )
-        self.session.add(basket)
-        self.session.commit()
-        return basket
-
-    def create_user(
-        self,
-        telegram_id: str,
-        username: str | None = None,
-        first_name: str | None = None,
-        last_name: str | None = None,
-        photo_url: str | None = None,
-    ) -> User:
-        user = User(
-            username=username,
-            first_name=first_name,
-            last_name=last_name,
-            photo_url=photo_url,
-            telegram_id=telegram_id,
-        )
-        self.session.add(user)
-        self.session.commit()
-        return user
-
-    def get_telegram_user(self, telegram_id) -> User | None:
-        return self.session.query(User).filter(User.telegram_id == telegram_id).first()
-
-    def get_basket_by_id(self, id) -> Basket | None:
-        return self.session.query(Basket).filter(Basket.id == id).first()
-
-    def get_user_by_id(self, id) -> User | None:
-        return self.session.query(User).filter(User.id == id).first()
-
-    def get_dish_by_id(self, id) -> User | None:
-        return self.session.query(Dish).filter(Dish.id == id).first()
-
-    def create_basket_dish(
-        self,
-        basket_id,
-        user_id,
-        dish_id,
-    ) -> Tuple[BasketDish, Dish]:
-        basket_dish = BasketDish(
-            basket_id=basket_id,
-            user_id=user_id,
-            dish_id=dish_id,
-        )
-        self.session.add(basket_dish)
-        self.session.commit()
-        dish = self.get_dish_by_id(id=dish_id)
-
-        return basket_dish, dish
-
-    def get_basket_dishes(self, basket_id) -> List[BasketDishModel]:
-        return [
-            BasketDishModel(
-                id=basket_dish.id,
-                user_id=basket_dish.user_id,
-                basket_id=basket_dish.basket_id,
-                dish=DishModel(
-                    id=dish.id,
-                    category_id=dish.category_id,
-                    name=dish.name,
-                    description=dish.description,
-                    price=dish.price,
-                    calories=dish.calories,
-                    proteins=dish.proteins,
-                    fats=dish.fats,
-                    carbs=dish.carbs,
-                    weight=dish.weight,
-                    photo_url=dish.photo_url,
-                ),
-            )
-            for basket_dish, dish in self.session.query(BasketDish, Dish)
-            .filter(BasketDish.basket_id == basket_id)
-            .join(Dish, BasketDish.dish_id == Dish.id)
-            .all()
-        ]
-
-
-storage = Storage()
 
 if __name__ == "__main__":
     Base.metadata.create_all(bind=engine)

@@ -4,14 +4,14 @@ from datetime import datetime
 from pydantic import BaseModel, Field, field_serializer, RootModel
 
 
-class Category(BaseModel):
+class CategoryModel(BaseModel):
     id: Optional[int] = Field(None, example=1)
     name: Optional[str] = Field(None, example="Сырные вафли")
 
 
-class Dish(BaseModel):
+class DishModel(BaseModel):
     id: Optional[int] = None
-    category_id: Optional[int] = None
+    category: CategoryModel | None = None
     name: Optional[str] = None
     description: Optional[str] = None
     price: Optional[float] = None
@@ -23,7 +23,7 @@ class Dish(BaseModel):
     photo_url: Optional[str] = None
 
 
-class User(BaseModel):
+class UserModel(BaseModel):
     id: Optional[int] = Field(None, example="123123")
     username: Optional[str] = Field(None, example="@pavel")
     first_name: Optional[str] = Field(None, example="pavel")
@@ -35,7 +35,7 @@ class User(BaseModel):
     telegram_id: str
 
 
-class Basket(BaseModel):
+class BasketModel(BaseModel):
     id: int
     photo_url: Optional[str] = None
     author_id: int
@@ -53,20 +53,26 @@ class Basket(BaseModel):
         return dt.strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-class BasketDish(BaseModel):
+class BasketDishModel(BaseModel):
     id: int
-    user_id: int
+    user: UserModel
     basket_id: int
-    dish: Dish
+    dish: DishModel
 
 
-class BasketsBasketIdDishesDishIdPostRequest(BaseModel):
+class BasketDishListModel(RootModel[List[BasketDishModel]]): ...
+
+
+class BasketsBasketIdDishesDishIdPostRequestModel(BaseModel):
     user_id: int
     # dish_id: int
     # basket_id: int
 
 
-class CategoryList(RootModel[List[Category]]): ...
+class CategoryListModel(RootModel[List[CategoryModel]]): ...
 
 
-class BasketDishList(RootModel[List[BasketDish]]): ...
+class DishListModel(RootModel[List[DishModel]]): ...
+
+
+class BasketDishListModel(RootModel[List[BasketDishModel]]): ...

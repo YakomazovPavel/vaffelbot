@@ -6,19 +6,20 @@ from flask_pydantic_api import pydantic_api, apidocs_views
 
 
 from models import (
-    Basket,
-    BasketDish,
-    BasketsBasketIdDishesDishIdPostRequest,
-    Category,
-    Dish,
-    User,
-    CategoryList,
-    BasketDishList,
+    BasketModel,
+    BasketDishModel,
+    BasketsBasketIdDishesDishIdPostRequestModel,
+    CategoryModel,
+    DishModel,
+    UserModel,
+    CategoryListModel,
+    BasketDishListModel,
+    DishListModel,
 )
 
 from type import CreateUserRequest, CreateBasketRequest
 
-from database import storage
+from storage import storage
 
 
 logger = logging.getLogger(__name__)
@@ -34,7 +35,7 @@ app.register_blueprint(apidocs_views.blueprint, url_prefix="/api/docs")
 def get_basket(id: int):
     basket = storage.get_basket_by_id(id=id)
     if basket:
-        return Basket(
+        return BasketModel(
             id=basket.id,
             photo_url=basket.photo_url,
             author_id=basket.author_id,
@@ -52,7 +53,7 @@ def get_basket(id: int):
 def get_baskets():
     categoryes = storage.get_baskets()
     return [
-        Basket(
+        BasketModel(
             id=basket.id,
             photo_url=basket.photo_url,
             author_id=basket.author_id,
@@ -67,23 +68,15 @@ def get_baskets():
 
 @app.post("/api/baskets/")
 @pydantic_api(name="Создать корзину", tags=["Baskets"])
-def create_basket(body: CreateBasketRequest) -> Basket:
-    user = storage.get_user_by_id(id=body.author_id)
-    if user:
+def create_basket(body: CreateBasketRequest) -> BasketModel:
+    is_user = storage.check_user_by_id(id=body.author_id)
+    if is_user:
         basket = storage.create_basket(
             name=body.name,
             author_id=body.author_id,
             photo_url=body.photo_url,
         )
-        return Basket(
-            id=basket.id,
-            photo_url=basket.photo_url,
-            author_id=basket.author_id,
-            name=basket.name,
-            is_locked=basket.is_locked,
-            created=basket.created,
-            updated=basket.updated,
-        )
+        return basket
     else:
         return Response(f"Пользователя {body.author_id} не найден", status=400)
 
@@ -103,11 +96,10 @@ def create_basket(body: CreateBasketRequest) -> Basket:
     name="Получить товары из корзины",
     tags=["BasketDish"],
 )
-def get_baskets_dishes(basket_id: int) -> BasketDishList:
-    basket = storage.get_basket_by_id(id=basket_id)
-    if basket:
-        basket_dishes = storage.get_basket_dishes(basket_id=basket_id)
-        return BasketDishList(basket_dishes)
+def get_baskets_dishes(basket_id: int) -> BasketDishListModel:
+    is_basket = storage.check_basket_id(id=basket_id)
+    if is_basket:
+        return storage.get_basket_dishes(basket_id=basket_id)
     else:
         return Response(f"Корзина {basket_id} не найдена", status=400)
 
@@ -118,35 +110,17 @@ def get_baskets_dishes(basket_id: int) -> BasketDishList:
     tags=["BasketDish"],
 )
 def create_baskets_dishes(
-    basket_id: int, dish_id: int, body: BasketsBasketIdDishesDishIdPostRequest
-) -> BasketDish:
+    basket_id: int, dish_id: int, body: BasketsBasketIdDishesDishIdPostRequestModel
+) -> BasketDishModel:
     basket = storage.get_basket_by_id(id=basket_id)
     dish = storage.get_dish_by_id(id=dish_id)
     user = storage.get_user_by_id(id=body.user_id)
 
     if basket and user and dish:
-        basket_dish, dish = storage.create_basket_dish(
+        return storage.create_basket_dish(
             basket_id=basket.id,
             user_id=user.id,
             dish_id=dish.id,
-        )
-        return BasketDish(
-            id=basket_dish.id,
-            user_id=user.id,
-            basket_id=basket.id,
-            dish=Dish(
-                id=dish.id,
-                category_id=dish.category_id,
-                name=dish.name,
-                description=dish.description,
-                price=dish.price,
-                calories=dish.calories,
-                proteins=dish.proteins,
-                fats=dish.fats,
-                carbs=dish.carbs,
-                weight=dish.weight,
-                photo_url=dish.photo_url,
-            ),
         )
     else:
         errors = []
@@ -166,36 +140,19 @@ def create_baskets_dishes(
 
 @app.get("/api/categories/")
 @pydantic_api(name="Получить список категорий", tags=["Categories"])
-def get_categories() -> CategoryList:
-    categoryes = storage.get_categoryes()
-    return CategoryList(Category(id=item.id, name=item.name) for item in categoryes)
+def get_categories() -> CategoryListModel:
+    return storage.get_categoryes()
 
 
 @app.get("/api/dishes/")
 @pydantic_api(name="Получить список блюд", tags=["Dishes"])
-def get_dishes() -> List[Dish]:
-    dishes = storage.get_dishes()
-    return [
-        Dish(
-            id=dish.id,
-            category_id=category,
-            name=dish.name,
-            description=dish.description,
-            price=dish.price,
-            calories=dish.calories,
-            proteins=dish.proteins,
-            fats=dish.fats,
-            carbs=dish.carbs,
-            weight=dish.weight,
-            photo_url=dish.photo_url,
-        ).model_dump()
-        for dish, category in dishes
-    ]
+def get_dishes() -> DishListModel:
+    return storage.get_dishes()
 
 
 @app.post("/users/")
 @pydantic_api(name="Создать пользователя", tags=["Users"])
-def create_user(body: CreateUserRequest) -> User:
+def create_user(body: CreateUserRequest) -> UserModel:
     user = storage.get_telegram_user(body.telegram_id)
     if not user:
         user = storage.create_user(
@@ -206,14 +163,7 @@ def create_user(body: CreateUserRequest) -> User:
             photo_url=body.photo_url,
         )
 
-    return User(
-        id=user.id,
-        username=user.username,
-        first_name=user.first_name,
-        last_name=user.last_name,
-        photo_url=user.photo_url,
-        telegram_id=user.telegram_id,
-    )
+    return user
 
 
 # @app.get("/users/{id}/", response_model=User, tags=["Users"])
