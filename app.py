@@ -39,15 +39,15 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 # app.wsgi_app = CustomWSGIMiddleware(app.wsgi_app)
 
 
-@app.route("/")
-@cross_origin()
-def a():
-    return True
+# @app.route("/")
+# @cross_origin()
+# def a():
+#     return True
 
 
 @app.after_request
 def add_cors_headers(response: Response):
-    response.headers.add("Access-Control-Allow-Origin", "https://yakomazovpavel.github.io")  # Allow all origins
+    response.headers.add("Access-Control-Allow-Origin", "*")  # Allow all origins
     response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
     response.headers.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
     return response
