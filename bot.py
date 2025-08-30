@@ -194,6 +194,7 @@ if __name__ == "__main__":
     
 TELEGRAM_BOT_TOKEN  {TELEGRAM_BOT_TOKEN}
 WEB_APP_URL         {WEB_APP_URL}
+HTTP_PROXY          {HTTP_PROXY}
 
 ========================================================================================================================
 """)    
