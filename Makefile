@@ -9,5 +9,6 @@ run:
 drop:
 	rm vaffel.db 
 	touch vaffel.db
+# 	chmod 666 vaffel.db
 	python database.py
 	python parser.py

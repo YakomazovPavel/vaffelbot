@@ -16,4 +16,3 @@ class CreateUserRequest(BaseModel):
 class CreateBasketRequest(BaseModel):
     author_id: int
     name: str
-    photo_url: Optional[str] = None

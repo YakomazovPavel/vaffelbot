@@ -74,8 +74,7 @@ def create_basket(body: CreateBasketRequest) -> BasketModel:
     if is_user:
         basket = storage.create_basket(
             name=body.name,
-            author_id=body.author_id,
-            photo_url=body.photo_url,
+            author_id=body.author_id
         )
         return basket
     else:

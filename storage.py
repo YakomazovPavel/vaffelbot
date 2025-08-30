@@ -20,6 +20,7 @@ from models import (
     DishListModel,
     BasketListModel,
 )
+from sqlalchemy.sql import func
 
 
 class Storage:
@@ -86,6 +87,8 @@ class Storage:
         author_id: str,
         photo_url: str | None = None,
     ) -> BasketModel:
+        baskets_count = self.session.query(Basket).filter(Basket.author_id == author_id).count()
+        photo_url = f'{baskets_count % 10}.jpg'
         basket = Basket(
             name=name,
             author_id=author_id,
