@@ -18,6 +18,8 @@ from models import (
     GetBasketListRequestModel,
 )
 
+from flask_cors import CORS, cross_origin
+
 from type import CreateUserRequest, CreateBasketRequest
 
 from storage import storage
@@ -30,9 +32,15 @@ logger.setLevel(logging.INFO)
 
 app = Flask(__name__)
 app.register_blueprint(apidocs_views.blueprint, url_prefix="/api/docs")
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 # app.before_request(authentication_middleware)
 
 app.wsgi_app = CustomWSGIMiddleware(app.wsgi_app)
+
+
+@app.route("/")
+@cross_origin()
 
 @app.after_request
 def add_cors_headers(response: Response):
