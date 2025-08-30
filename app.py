@@ -34,6 +34,13 @@ app.register_blueprint(apidocs_views.blueprint, url_prefix="/api/docs")
 
 app.wsgi_app = CustomWSGIMiddleware(app.wsgi_app)
 
+@app.after_request
+def add_cors_headers(response: Response):
+    response.headers.add("Access-Control-Allow-Origin", "*")  # Allow all origins
+    response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
+    response.headers.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
+    return response
+
 
 @app.get("/api/baskets/<int:id>")
 @pydantic_api(name="Получить корзину", tags=["Baskets"])
