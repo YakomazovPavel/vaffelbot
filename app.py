@@ -41,12 +41,12 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 # @app.route("/")
 
-# @app.after_request
-# def add_cors_headers(response: Response):
-#     # response.headers.add("Access-Control-Allow-Origin", "*")  # Allow all origins
-#     # response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
-#     # response.headers.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
-#     return response
+@app.after_request
+def add_cors_headers(response: Response):
+    response.headers.add("Access-Control-Allow-Origin", "*")  # Allow all origins
+    response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
+    response.headers.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
+    return response
 
 
 @app.get("/api/baskets/<int:id>/")
@@ -70,6 +70,7 @@ def get_basket(id: int) -> BasketModel:
 
 
 @app.get("/api/user/<int:user_id>/baskets/")
+@cross_origin()
 @pydantic_api(
     name="Получить список корзин",
     tags=["Baskets"],  # , merge_path_parameters=True
@@ -108,6 +109,7 @@ def create_basket(body: CreateBasketRequest) -> BasketModel:
 
 
 @app.get("/api/baskets/<int:basket_id>/dishes/")
+@cross_origin()
 @pydantic_api(
     name="Получить товары из корзины",
     tags=["BasketDish"],
@@ -121,6 +123,7 @@ def get_baskets_dishes(basket_id: int) -> BasketDishListModel:
 
 
 @app.post("/api/baskets/<int:basket_id>/dishes/<int:dish_id>/")
+@cross_origin()
 @pydantic_api(
     name="Создать товар в корзине",
     tags=["BasketDish"],
@@ -155,18 +158,21 @@ def create_baskets_dishes(
 
 
 @app.get("/api/categories/")
+@cross_origin()
 @pydantic_api(name="Получить список категорий", tags=["Categories"])
 def get_categories() -> CategoryListModel:
     return storage.get_categoryes()
 
 
 @app.get("/api/dishes/")
+@cross_origin()
 @pydantic_api(name="Получить список блюд", tags=["Dishes"])
 def get_dishes() -> DishListModel:
     return storage.get_dishes()
 
 
 @app.post("/users/")
+@cross_origin()
 @pydantic_api(name="Создать пользователя", tags=["Users"])
 def create_user(body: CreateUserRequest) -> UserModel:
     user = storage.get_telegram_user(body.telegram_id)
