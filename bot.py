@@ -18,6 +18,7 @@ from aiogram.methods.set_chat_menu_button import SetChatMenuButton
 import asyncio
 from os import getenv
 from dotenv import load_dotenv
+from aiogram.client.session.aiohttp import AiohttpSession
 
 baskets = [
     {
@@ -59,9 +60,9 @@ bot_self_link_start = "https://t.me/vaffel2_bot/start?startapp=123"
 
 
 class Bot:
-    def __init__(self, token: str, url: str) -> None:
+    def __init__(self, token: str, url: str, session) -> None:
         self.bot = TGBot(
-            token=token, default=DefaultBotProperties(parse_mode=ParseMode.HTML)
+            token=token, default=DefaultBotProperties(parse_mode=ParseMode.HTML), session=session
         )
 
         self.dp = Dispatcher()
@@ -185,6 +186,7 @@ if __name__ == "__main__":
     load_dotenv()
     TELEGRAM_BOT_TOKEN = getenv("TELEGRAM_BOT_TOKEN")
     WEB_APP_URL = getenv("WEB_APP_URL")
+    HTTP_PROXY = getenv("http_proxy")
 
     async def main():
         print(f"""
@@ -194,9 +196,11 @@ TELEGRAM_BOT_TOKEN  {TELEGRAM_BOT_TOKEN}
 WEB_APP_URL         {WEB_APP_URL}
 
 ========================================================================================================================
-""")
-
-        bot = Bot(token=TELEGRAM_BOT_TOKEN, url=WEB_APP_URL)
+""")    
+        session = None
+        if HTTP_PROXY:
+            session  = AiohttpSession(proxy=HTTP_PROXY)
+        bot = Bot(token=TELEGRAM_BOT_TOKEN, url=WEB_APP_URL, session=session)
         await bot.start()
 
     asyncio.run(main())
