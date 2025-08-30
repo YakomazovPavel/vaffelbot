@@ -175,7 +175,7 @@ def get_dishes() -> DishListModel:
     return storage.get_dishes()
 
 
-@app.post("/users/")
+@app.post("/api/users/")
 @cross_origin()
 @pydantic_api(name="Создать пользователя", tags=["Users"])
 def create_user(body: CreateUserRequest) -> UserModel:
