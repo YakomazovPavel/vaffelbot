@@ -120,7 +120,7 @@ class Storage:
 
     def create_user(
         self,
-        telegram_id: str,
+        telegram_id: int,
         username: str | None = None,
         first_name: str | None = None,
         last_name: str | None = None,

@@ -44,7 +44,7 @@ class User(Base):
     first_name = Column(String, nullable=True)
     last_name = Column(String, nullable=True)
     photo_url = Column(String, nullable=True)
-    telegram_id = Column(String, nullable=False, unique=True)
+    telegram_id = Column(Integer, nullable=False, unique=True)
     baskets: Mapped[List["Basket"]] = relationship(
         back_populates="users", secondary="basket_user"
     )
