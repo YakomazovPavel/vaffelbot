@@ -42,12 +42,12 @@ app.wsgi_app = CustomWSGIMiddleware(app.wsgi_app)
 @app.route("/")
 @cross_origin()
 
-@app.after_request
-def add_cors_headers(response: Response):
-    response.headers.add("Access-Control-Allow-Origin", "*")  # Allow all origins
-    response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
-    response.headers.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
-    return response
+# @app.after_request
+# def add_cors_headers(response: Response):
+#     response.headers.add("Access-Control-Allow-Origin", "*")  # Allow all origins
+#     response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
+#     response.headers.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
+#     return response
 
 
 @app.get("/api/baskets/<int:id>")
