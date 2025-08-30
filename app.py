@@ -36,21 +36,21 @@ cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 # app.before_request(authentication_middleware)
 
-app.wsgi_app = CustomWSGIMiddleware(app.wsgi_app)
+# app.wsgi_app = CustomWSGIMiddleware(app.wsgi_app)
 
 
-@app.route("/")
-@cross_origin()
+# @app.route("/")
 
 # @app.after_request
 # def add_cors_headers(response: Response):
-#     response.headers.add("Access-Control-Allow-Origin", "*")  # Allow all origins
-#     response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
-#     response.headers.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
+#     # response.headers.add("Access-Control-Allow-Origin", "*")  # Allow all origins
+#     # response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
+#     # response.headers.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
 #     return response
 
 
-@app.get("/api/baskets/<int:id>")
+@app.get("/api/baskets/<int:id>/")
+@cross_origin()
 @pydantic_api(name="Получить корзину", tags=["Baskets"])
 def get_basket(id: int) -> BasketModel:
     # print(f"request.user {request.user}")
@@ -83,6 +83,7 @@ def get_baskets(user_id: int) -> BasketListModel:
 
 
 @app.post("/api/baskets/")
+@cross_origin()
 @pydantic_api(name="Создать корзину", tags=["Baskets"])
 def create_basket(body: CreateBasketRequest) -> BasketModel:
     is_user = storage.check_user_id(id=body.author_id)
