@@ -23,7 +23,7 @@ from flask_cors import CORS, cross_origin
 from type import CreateUserRequest, CreateBasketRequest
 
 from storage import storage
-from middleware import CustomWSGIMiddleware
+from middleware import CustomWSGIMiddleware, AuthenticationMiddleware
 
 
 logger = logging.getLogger(__name__)
@@ -31,10 +31,10 @@ logger.setLevel(logging.INFO)
 
 
 app = Flask(__name__)
+app.before_request(AuthenticationMiddleware)
 app.register_blueprint(apidocs_views.blueprint, url_prefix="/api/docs")
 cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
-# app.before_request(authentication_middleware)
+app.config["CORS_HEADERS"] = "Content-Type"
 
 # app.wsgi_app = CustomWSGIMiddleware(app.wsgi_app)
 
@@ -80,6 +80,7 @@ def get_basket(id: int) -> BasketModel:
     tags=["Baskets"],  # , merge_path_parameters=True
 )
 def get_baskets(user_id: int) -> BasketListModel:
+    print(f"!user {request.user}")
     is_user = storage.check_user_id(id=user_id)
     if is_user:
         return storage.get_baskets(user_id=user_id)
@@ -93,10 +94,7 @@ def get_baskets(user_id: int) -> BasketListModel:
 def create_basket(body: CreateBasketRequest) -> BasketModel:
     is_user = storage.check_user_id(id=body.author_id)
     if is_user:
-        basket = storage.create_basket(
-            name=body.name,
-            author_id=body.author_id
-        )
+        basket = storage.create_basket(name=body.name, author_id=body.author_id)
         return basket
     else:
         return Response(f"Пользователя {body.author_id} не найден", status=400)
@@ -128,10 +126,7 @@ def get_baskets_dishes(basket_id: int) -> BasketDishListModel:
 
 @app.post("/api/baskets/<int:basket_id>/dishes/<int:dish_id>/")
 @cross_origin()
-@pydantic_api(
-    name="Создать товар в корзине",
-    tags=["BasketDish"],
-)
+@pydantic_api(name="Создать товар в корзине", tags=["BasketDish"])
 def create_baskets_dishes(
     basket_id: int, dish_id: int, body: BasketsBasketIdDishesDishIdPostRequestModel
 ) -> BasketDishModel:
@@ -154,11 +149,25 @@ def create_baskets_dishes(
         return Response(message, status=400)
 
 
-# @app.delete(
-#     "/baskets/{basket_id}/dishes/{dish_id}/", response_model=None, tags=["Baskets"]
-# )
-# def delete_baskets_dishes(basket_id: str, dish_id: str = ...) -> None:
-#     pass
+@app.delete("/api/baskets/<int:basket_id>/dishes/<int:dish_id>/")
+@cross_origin()
+@pydantic_api(name="Удалить товар из корзины", tags=["BasketDish"])
+def delete_baskets_dishes(basket_id: int, dish_id: int) -> BasketDishModel:
+    print(f"!user {request.user}")
+    basket = storage.get_basket_by_id(id=basket_id)
+    dish = storage.get_dish_by_id(id=dish_id)
+
+    if not basket or not dish:
+        errors = []
+        basket is None and errors.append(f"Корзина {basket_id} не найдена")
+        dish is None and errors.append(f"Блюдо {dish_id} не найдено")
+        message = ", ".join(errors)
+        return Response(message, status=400)
+    else:
+        basket_dish = storage.remove_basket_dish(basket_id=basket.id, dish_id=dish.id)
+        return basket_dish or Response(
+            f"Не удалось удалить блюдо {dish_id} из корзины {basket_id}", status=500
+        )
 
 
 @app.get("/api/categories/")

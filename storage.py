@@ -7,7 +7,7 @@ from database import (
     Dish,
     Category,
 )
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, joinedload
 
 from models import (
     CategoryModel,
@@ -87,8 +87,10 @@ class Storage:
         author_id: str,
         photo_url: str | None = None,
     ) -> BasketModel:
-        baskets_count = self.session.query(Basket).filter(Basket.author_id == author_id).count()
-        photo_url = f'{baskets_count % 10}.jpg'
+        baskets_count = (
+            self.session.query(Basket).filter(Basket.author_id == author_id).count()
+        )
+        photo_url = f"{baskets_count % 10}.jpg"
         basket = Basket(
             name=name,
             author_id=author_id,
@@ -162,8 +164,9 @@ class Storage:
     def check_user_id(self, id) -> bool:
         return bool(self.session.query(User.id).filter(User.id == id).first())
 
-    def get_user_by_id(self, id) -> UserModel | None:
+    def get_user_by_id(self, id: int) -> UserModel | None:
         user = self.session.query(User).filter(User.id == id).first()
+        print(f"!get_user_by_id user.telegram_id {user.telegram_id}")
         if user:
             return UserModel(
                 id=user.id,
@@ -263,6 +266,49 @@ class Storage:
 
     def check_basket_id(self, id) -> bool:
         return bool(self.session.query(Basket.id).filter(Basket.id == id).first())
+
+    def remove_basket_dish(
+        self, basket_id: int, dish_id: int
+    ) -> BasketDishModel | None:
+        basket_dish = (
+            self.session.query(BasketDish)
+            .options(joinedload(BasketDish.user))
+            .filter_by(basket_id=basket_id, dish_id=dish_id)
+            .first()
+        )
+        if basket_dish:
+            self.session.delete(basket_dish)
+            self.session.commit()
+            return BasketDishModel(
+                id=basket_dish.id,
+                user=UserModel(
+                    id=basket_dish.user.id,
+                    username=basket_dish.user.username,
+                    first_name=basket_dish.user.first_name,
+                    last_name=basket_dish.user.last_name,
+                    photo_url=basket_dish.user.photo_url,
+                    telegram_id=basket_dish.user.telegram_id,
+                ),
+                basket_id=basket_dish.basket_id,
+                dish=DishModel(
+                    id=basket_dish.dish.id,
+                    category=CategoryModel(
+                        id=basket_dish.dish.category.id,
+                        name=basket_dish.dish.category.name,
+                    )
+                    if basket_dish.dish.category
+                    else None,
+                    name=basket_dish.dish.name,
+                    description=basket_dish.dish.description,
+                    price=basket_dish.dish.price,
+                    calories=basket_dish.dish.calories,
+                    proteins=basket_dish.dish.proteins,
+                    fats=basket_dish.dish.fats,
+                    carbs=basket_dish.dish.carbs,
+                    weight=basket_dish.dish.weight,
+                    photo_url=basket_dish.dish.photo_url,
+                ),
+            )
 
 
 storage = Storage()

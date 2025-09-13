@@ -1,11 +1,21 @@
 from flask import request, Request, Response
 import json
+from storage import storage
 
 
-def authentication_middleware():
-    request.headers.get("")
-    request.user = "USER BLAYT`!"
-    return Response
+def AuthenticationMiddleware():
+    authorization = request.headers.get("Authorization")
+    if authorization:
+        try:
+            request.user = storage.get_user_by_id(int(authorization))
+        except Exception:
+            request.user = None
+    else:
+        request.user = None
+
+    # request.headers.get("")
+    # request.user = "USER BLAYT`!"
+    # return Response
     # data = request.get_json()
     # data["user"] = "USER BLAYT`!"
     # request._cached_json = data  # Update the cached JSON
