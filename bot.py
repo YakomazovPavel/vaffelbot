@@ -19,6 +19,7 @@ import asyncio
 from os import getenv
 from dotenv import load_dotenv
 from aiogram.client.session.aiohttp import AiohttpSession
+from aiogram.methods import SavePreparedInlineMessage
 
 baskets = [
     {
@@ -175,6 +176,37 @@ class Bot:
                 f'Привет, {message.from_user.full_name}!  \nПереходи в меню, чтобы создавать, делиться и заказывать свои корзины с вафлями от <a href="https://vaffel.ru/">vaffel.ru</a>',
                 parse_mode="HTML",
             )
+
+        @self.dp.message(Command("prepare"))
+        async def prepare(message: Message) -> None:
+            res = await self.bot.save_prepared_inline_message(
+                user_id=message.from_user.id,
+                result=InlineQueryResultPhoto(
+                    id="123",
+                    photo_url="https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/2.jpg",
+                    thumbnail_url="https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/2.jpg",
+                    title="title",
+                    description="description",
+                    caption="Добавляем свои вафельки сюда",
+                    reply_markup=InlineKeyboardMarkup(
+                        inline_keyboard=[
+                            [
+                                InlineKeyboardButton(
+                                    text="Добавить",
+                                    url="https://t.me/vaffel2_bot/vaffel?startapp=1",
+                                )
+                            ]
+                        ]
+                    ),
+                ),
+                allow_bot_chats=True,
+                allow_channel_chats=True,
+                allow_group_chats=True,
+                allow_user_chats=True,
+            )
+
+            print(res)
+            await message.answer("prepare создан")
 
     async def start(self) -> None:
         print("start bot")
