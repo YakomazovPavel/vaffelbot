@@ -57,9 +57,16 @@ app.config["CORS_HEADERS"] = "Content-Type"
 @cross_origin()
 @pydantic_api(name="Получить корзину", tags=["Baskets"])
 def get_basket(id: int) -> BasketModel:
-    # print(f"request.user {request.user}")
     basket = storage.get_basket_by_id(id=id)
     if basket:
+        print(f"request.user {request.user}")
+        if request.user:
+            if not storage.check_basket_user(
+                user_id=request.user.id,
+                basket_id=basket.id,
+            ):
+                storage.create_basket_user(user_id=request.user.id, basket_id=basket.id)
+
         return BasketModel(
             id=basket.id,
             photo_url=basket.photo_url,

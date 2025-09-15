@@ -112,6 +112,14 @@ class Storage:
             updated=basket.updated,
         )
 
+    def check_basket_user(self, user_id: int, basket_id: int) -> None:
+        return not bool(
+            self.session.query(BasketUser)
+            .filter(BasketUser.user_id == user_id)
+            .filter(BasketUser.basket_id == basket_id)
+            .first()
+        )
+
     def create_basket_user(self, basket_id, user_id) -> None:
         basket_user = BasketUser(
             basket_id=basket_id,

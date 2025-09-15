@@ -31,7 +31,7 @@ baskets = [
         "id": "2",
         "name": "Хеллоуин",
         "photo": "https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/2.jpg",
-        "link": "https://t.me/vaffel2_bot/vaffel?startapp=123",
+        "link": "https://t.me/vaffel2_bot/vaffel?startapp=123",  # Рабочая ссылка на приложение
     },
     {
         "id": "3",
@@ -49,6 +49,8 @@ baskets = [
 
 photo_bota = "https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/icon.jpg"
 
+# https://yakomazovpavel.github.io/vaffel/dist/index.html
+
 
 # photo_url = "https://photos.app.goo.gl/eLKpTjxezmHXAcWQA"
 # photo_url = "https://img.freepik.com/free-photo/shopping-basket-on-white_93675-130677.jpg?size=626&ext=jpg"
@@ -62,7 +64,9 @@ bot_self_link_start = "https://t.me/vaffel2_bot/start?startapp=123"
 class Bot:
     def __init__(self, token: str, url: str, session) -> None:
         self.bot = TGBot(
-            token=token, default=DefaultBotProperties(parse_mode=ParseMode.HTML), session=session
+            token=token,
+            default=DefaultBotProperties(parse_mode=ParseMode.HTML),
+            session=session,
         )
 
         self.dp = Dispatcher()
@@ -197,10 +201,10 @@ WEB_APP_URL         {WEB_APP_URL}
 HTTP_PROXY          {HTTP_PROXY}
 
 ========================================================================================================================
-""")    
+""")
         session = None
         if HTTP_PROXY:
-            session  = AiohttpSession(proxy=HTTP_PROXY)
+            session = AiohttpSession(proxy=HTTP_PROXY)
         bot = Bot(token=TELEGRAM_BOT_TOKEN, url=WEB_APP_URL, session=session)
         await bot.start()
 
