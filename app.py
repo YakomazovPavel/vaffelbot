@@ -90,7 +90,7 @@ def share_basket(id: int) -> PrepareMessage:
                     thumbnail_url=f"https://yakomazovpavel.github.io/vaffel/dist/assets/{basket.photo_url}",
                     title="Title",
                     description="Description",
-                    caption=f'Добавляйте свои вафли в совместную корзину "{basket.name}"',
+                    caption=f"Добавляйте свои вафли в совместную корзину {basket.name}",
                     reply_markup=InlineKeyboardMarkup(
                         inline_keyboard=[
                             [
