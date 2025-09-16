@@ -199,6 +199,7 @@ class Bot:
                         ]
                     ),
                 ),
+                #
                 allow_bot_chats=True,
                 allow_channel_chats=True,
                 allow_group_chats=True,
@@ -218,14 +219,12 @@ class Bot:
         await self.dp.start_polling(self.bot, skip_updates=True)
 
 
-if __name__ == "__main__":
-    load_dotenv()
-    TELEGRAM_BOT_TOKEN = getenv("TELEGRAM_BOT_TOKEN")
-    WEB_APP_URL = getenv("WEB_APP_URL")
-    HTTP_PROXY = getenv("http_proxy")
+load_dotenv()
+TELEGRAM_BOT_TOKEN = getenv("TELEGRAM_BOT_TOKEN")
+WEB_APP_URL = getenv("WEB_APP_URL")
+HTTP_PROXY = getenv("http_proxy")
 
-    async def main():
-        print(f"""
+print(f"""
 ========================================================================================================================
     
 TELEGRAM_BOT_TOKEN  {TELEGRAM_BOT_TOKEN}
@@ -234,10 +233,16 @@ HTTP_PROXY          {HTTP_PROXY}
 
 ========================================================================================================================
 """)
-        session = None
-        if HTTP_PROXY:
-            session = AiohttpSession(proxy=HTTP_PROXY)
-        bot = Bot(token=TELEGRAM_BOT_TOKEN, url=WEB_APP_URL, session=session)
+
+
+session = None
+if HTTP_PROXY:
+    session = AiohttpSession(proxy=HTTP_PROXY)
+bot = Bot(token=TELEGRAM_BOT_TOKEN, url=WEB_APP_URL, session=session)
+
+if __name__ == "__main__":
+
+    async def main():
         await bot.start()
 
     asyncio.run(main())

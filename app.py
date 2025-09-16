@@ -1,4 +1,5 @@
 import logging
+import uuid
 
 from flask import Flask, Response, request
 from flask_pydantic_api import pydantic_api, apidocs_views
@@ -8,14 +9,16 @@ from models import (
     BasketModel,
     BasketDishModel,
     BasketsBasketIdDishesDishIdPostRequestModel,
-    CategoryModel,
-    DishModel,
     UserModel,
     CategoryListModel,
     BasketDishListModel,
     DishListModel,
     BasketListModel,
-    GetBasketListRequestModel,
+)
+from aiogram.types import (
+    InlineQueryResultPhoto,
+    InlineKeyboardMarkup,
+    InlineKeyboardButton,
 )
 
 from flask_cors import CORS, cross_origin
@@ -23,8 +26,8 @@ from flask_cors import CORS, cross_origin
 from type import CreateUserRequest, CreateBasketRequest
 
 from storage import storage
-from middleware import CustomWSGIMiddleware, AuthenticationMiddleware
-
+from middleware import AuthenticationMiddleware
+from bot import bot
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -36,21 +39,8 @@ app.register_blueprint(apidocs_views.blueprint, url_prefix="/api/docs")
 cors = CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
 
+
 # app.wsgi_app = CustomWSGIMiddleware(app.wsgi_app)
-
-
-# @app.route("/")
-# @cross_origin()
-# def a():
-#     return True
-
-
-# @app.after_request
-# def add_cors_headers(response: Response):
-#     response.headers.add("Access-Control-Allow-Origin", "*")  # Allow all origins
-#     response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
-#     response.headers.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
-#     return response
 
 
 @app.get("/api/baskets/<int:id>/")
@@ -78,6 +68,44 @@ def get_basket(id: int) -> BasketModel:
         )
     else:
         return Response(status=404)
+
+
+@app.get("/api/baskets/<int:id>/share/")
+@cross_origin()
+@pydantic_api(name="Поделиться корзиной", tags=["Baskets"])
+def share_basket(id: int) -> str:
+    basket = storage.get_basket_by_id(id=id)
+    if basket:
+        print(f"telegram_id {request.user.telegram_id}")
+        prepared_inline_message = bot.bot.save_prepared_inline_message(
+            user_id=request.user.telegram_id,
+            result=InlineQueryResultPhoto(
+                id=uuid.uuid4(),
+                photo_url=basket.photo_url,
+                thumbnail_url=basket.photo_url,
+                title=basket.name,
+                description="Description",
+                caption=f'Добавляйте свои вафли в совместную корзину "{basket.name}"',
+                reply_markup=InlineKeyboardMarkup(
+                    inline_keyboard=[
+                        [
+                            InlineKeyboardButton(
+                                text="Добавить",
+                                url=f"https://t.me/vaffel2_bot/vaffel?startapp={basket.id}",
+                            )
+                        ]
+                    ]
+                ),
+            ),
+            #
+            allow_bot_chats=True,
+            allow_channel_chats=True,
+            allow_group_chats=True,
+            allow_user_chats=True,
+        )
+        Response(prepared_inline_message.id, status=201)
+    else:
+        return Response(status=400)
 
 
 @app.get("/api/user/<int:user_id>/baskets/")
