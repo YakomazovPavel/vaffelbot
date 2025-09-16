@@ -78,8 +78,10 @@ async def create_prepare_message(basket: Basket, telegram_id: int, id: str):
         user_id=telegram_id,
         result=InlineQueryResultPhoto(
             id=id,
-            photo_url=basket.photo_url,
-            thumbnail_url=basket.photo_url,
+            # photo_url=basket.photo_url,
+            # thumbnail_url=basket.photo_url,
+            photo_url="https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/2.jpg",
+            thumbnail_url="https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/2.jpg",
             title=basket.name,
             description="Description",
             caption=f'Добавляйте свои вафли в совместную корзину "{basket.name}"',
