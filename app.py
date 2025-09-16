@@ -31,6 +31,7 @@ from storage import storage
 from middleware import AuthenticationMiddleware
 from database import Basket
 import traceback
+from bot import bot
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -73,48 +74,6 @@ def get_basket(id: int) -> BasketModel:
         return Response(status=404)
 
 
-async def create_prepare_message(
-    telegram_id: int,
-):  # basket: Basket, telegram_id: int, id: str
-    from bot import bot
-
-    try:
-        message = await bot.bot.save_prepared_inline_message(
-            user_id=telegram_id,
-            result=InlineQueryResultPhoto(
-                id=str(uuid.uuid4()),
-                # photo_url=basket.photo_url,
-                # thumbnail_url=basket.photo_url,
-                photo_url="https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/2.jpg",
-                thumbnail_url="https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/2.jpg",
-                title="basket.name",
-                description="Description",
-                caption="Добавляйте свои вафли в совместную корзину ",
-                reply_markup=InlineKeyboardMarkup(
-                    inline_keyboard=[
-                        [
-                            InlineKeyboardButton(
-                                text="Добавить",
-                                url="https://t.me/vaffel2_bot/vaffel?startapp=1",
-                            )
-                        ]
-                    ]
-                ),
-            ),
-            #
-            allow_bot_chats=True,
-            allow_channel_chats=True,
-            allow_group_chats=True,
-            allow_user_chats=True,
-        )
-        print(f"message {message}")
-
-        return message
-    except Exception as e:
-        print(f"!ERROR {e}")
-        traceback.print_exc()
-
-
 @app.get("/api/baskets/<int:id>/share/")
 @cross_origin()
 @pydantic_api(name="Поделиться корзиной", tags=["Baskets"])
@@ -123,10 +82,33 @@ def share_basket(id: int) -> PrepareMessage:
     if basket:
         print(f"telegram_id {request.user}")
         res_message = asyncio.get_event_loop().run_until_complete(
-            create_prepare_message(
-                # basket=basket,
-                telegram_id=request.user.telegram_id,
-                # id=str(uuid.uuid4()),
+            bot.bot.save_prepared_inline_message(
+                user_id=request.user.telegram_id,
+                result=InlineQueryResultPhoto(
+                    id=str(uuid.uuid4()),
+                    # photo_url=basket.photo_url,
+                    # thumbnail_url=basket.photo_url,
+                    photo_url="https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/2.jpg",
+                    thumbnail_url="https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/2.jpg",
+                    title="basket.name",
+                    description="Description",
+                    caption="Добавляйте свои вафли в совместную корзину ",
+                    reply_markup=InlineKeyboardMarkup(
+                        inline_keyboard=[
+                            [
+                                InlineKeyboardButton(
+                                    text="Добавить",
+                                    url="https://t.me/vaffel2_bot/vaffel?startapp=1",
+                                )
+                            ]
+                        ]
+                    ),
+                ),
+                #
+                allow_bot_chats=True,
+                allow_channel_chats=True,
+                allow_group_chats=True,
+                allow_user_chats=True,
             )
         )
         return PrepareMessage(id=res_message.id)
