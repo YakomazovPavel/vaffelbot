@@ -112,7 +112,7 @@ async def create_prepare_message(basket: Basket, telegram_id: int):
 def share_basket(id: int) -> PrepareMessage:
     basket = storage.get_basket_by_id(id=id)
     if basket:
-        print(f"telegram_id {request.user}")
+        print(f"telegram_id {request.user.telegram_id}")
         res_message = asyncio.run(
             create_prepare_message(
                 basket=basket,
