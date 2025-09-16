@@ -108,11 +108,11 @@ async def create_prepare_message(
             allow_user_chats=True,
         )
         print(f"message {message}")
+
+        return message
     except Exception as e:
         print(f"!ERROR {e}")
         traceback.print_exc()
-
-    return message
 
 
 @app.get("/api/baskets/<int:id>/share/")
