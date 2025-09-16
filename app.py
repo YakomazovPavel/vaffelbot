@@ -88,17 +88,15 @@ def share_basket(id: int) -> PrepareMessage:
                     id=str(uuid.uuid4()),
                     photo_url=f"https://yakomazovpavel.github.io/vaffel/dist/assets/{basket.photo_url}",
                     thumbnail_url=f"https://yakomazovpavel.github.io/vaffel/dist/assets/{basket.photo_url}",
-                    # photo_url="https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/2.jpg",
-                    # thumbnail_url="https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/2.jpg",
-                    title="basket.name",
+                    title="Title",
                     description="Description",
-                    caption="Добавляйте свои вафли в совместную корзину ",
+                    caption=f'Добавляйте свои вафли в совместную корзину "{basket.name}"',
                     reply_markup=InlineKeyboardMarkup(
                         inline_keyboard=[
                             [
                                 InlineKeyboardButton(
                                     text="Добавить",
-                                    url="https://t.me/vaffel2_bot/vaffel?startapp=1",
+                                    url=f"https://t.me/vaffel2_bot/vaffel?startapp={basket.id}",
                                 )
                             ]
                         ]
