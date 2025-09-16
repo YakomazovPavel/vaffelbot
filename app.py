@@ -28,7 +28,6 @@ from type import CreateUserRequest, CreateBasketRequest
 
 from storage import storage
 from middleware import AuthenticationMiddleware
-from bot import bot
 from database import Basket
 
 logger = logging.getLogger(__name__)
@@ -73,6 +72,8 @@ def get_basket(id: int) -> BasketModel:
 
 
 async def create_prepare_message(basket: Basket, telegram_id: int, id: str):
+    from bot import bot
+
     return await bot.bot.save_prepared_inline_message(
         user_id=telegram_id,
         result=InlineQueryResultPhoto(
