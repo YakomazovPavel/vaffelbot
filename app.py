@@ -76,7 +76,7 @@ async def create_prepare_message(basket: Basket, telegram_id: int):
     from bot import bot
 
     message = await bot.bot.save_prepared_inline_message(
-        user_id=telegram_id,
+        user_id=int(telegram_id),
         result=InlineQueryResultPhoto(
             id=str(uuid.uuid4()),
             photo_url=f"https://yakomazovpavel.github.io/vaffel/dist/assets/{basket.photo_url}",
