@@ -72,26 +72,24 @@ def get_basket(id: int) -> BasketModel:
         return Response(status=404)
 
 
-async def create_prepare_message():  # basket: Basket, telegram_id: int, id: str
+async def create_prepare_message(basket: Basket, telegram_id: int, id: str):
     from bot import bot
 
     message = await bot.bot.save_prepared_inline_message(
         user_id=422784914,
         result=InlineQueryResultPhoto(
             id=str(uuid.uuid4()),
-            # photo_url=basket.photo_url,
-            # thumbnail_url=basket.photo_url,
-            photo_url="https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/2.jpg",
-            thumbnail_url="https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/2.jpg",
-            title="basket.name",
+            photo_url=f"https://yakomazovpavel.github.io/vaffel/dist/assets/{basket.photo_url}",
+            thumbnail_url=f"https://yakomazovpavel.github.io/vaffel/dist/assets/{basket.photo_url}",
+            title=basket.name,
             description="Description",
-            caption="Добавляйте свои вафли в совместную корзину ",
+            caption=f"Добавляйте свои вафли в совместную корзину {basket.name}",
             reply_markup=InlineKeyboardMarkup(
                 inline_keyboard=[
                     [
                         InlineKeyboardButton(
                             text="Добавить",
-                            url="https://t.me/vaffel2_bot/vaffel?startapp=1",
+                            url=f"https://t.me/vaffel2_bot/vaffel?startapp={basket.id}",
                         )
                     ]
                 ]
@@ -117,9 +115,9 @@ def share_basket(id: int) -> PrepareMessage:
         print(f"telegram_id {request.user}")
         res_message = asyncio.run(
             create_prepare_message(
-                # basket=basket,
-                # telegram_id=request.user,
-                # id=str(uuid.uuid4()),
+                basket=basket,
+                telegram_id=request.user.telegram_id,
+                id=str(uuid.uuid4()),
             )
         )
         return PrepareMessage(id=res_message.id)
