@@ -1,3 +1,4 @@
+import asyncio
 import logging
 import uuid
 
@@ -28,6 +29,7 @@ from type import CreateUserRequest, CreateBasketRequest
 from storage import storage
 from middleware import AuthenticationMiddleware
 from bot import bot
+from database import Basket
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -70,6 +72,35 @@ def get_basket(id: int) -> BasketModel:
         return Response(status=404)
 
 
+async def create_prepare_message(basket: Basket, telegram_id: int):
+    return await bot.bot.save_prepared_inline_message(
+        user_id=telegram_id,
+        result=InlineQueryResultPhoto(
+            id=str(uuid.uuid4()),
+            photo_url=basket.photo_url,
+            thumbnail_url=basket.photo_url,
+            title=basket.name,
+            description="Description",
+            caption=f'Добавляйте свои вафли в совместную корзину "{basket.name}"',
+            reply_markup=InlineKeyboardMarkup(
+                inline_keyboard=[
+                    [
+                        InlineKeyboardButton(
+                            text="Добавить",
+                            url=f"https://t.me/vaffel2_bot/vaffel?startapp={basket.id}",
+                        )
+                    ]
+                ]
+            ),
+        ),
+        #
+        allow_bot_chats=True,
+        allow_channel_chats=True,
+        allow_group_chats=True,
+        allow_user_chats=True,
+    )
+
+
 @app.get("/api/baskets/<int:id>/share/")
 @cross_origin()
 @pydantic_api(name="Поделиться корзиной", tags=["Baskets"])
@@ -77,31 +108,8 @@ def share_basket(id: int) -> str:
     basket = storage.get_basket_by_id(id=id)
     if basket:
         print(f"telegram_id {request.user.telegram_id}")
-        prepared_inline_message = bot.bot.save_prepared_inline_message(
-            user_id=request.user.telegram_id,
-            result=InlineQueryResultPhoto(
-                id=str(uuid.uuid4()),
-                photo_url=basket.photo_url,
-                thumbnail_url=basket.photo_url,
-                title=basket.name,
-                description="Description",
-                caption=f'Добавляйте свои вафли в совместную корзину "{basket.name}"',
-                reply_markup=InlineKeyboardMarkup(
-                    inline_keyboard=[
-                        [
-                            InlineKeyboardButton(
-                                text="Добавить",
-                                url=f"https://t.me/vaffel2_bot/vaffel?startapp={basket.id}",
-                            )
-                        ]
-                    ]
-                ),
-            ),
-            #
-            allow_bot_chats=True,
-            allow_channel_chats=True,
-            allow_group_chats=True,
-            allow_user_chats=True,
+        prepared_inline_message = asyncio.run(
+            create_prepare_message(basket, request.user.telegram_id)
         )
         Response(prepared_inline_message.id, status=201)
     else:
