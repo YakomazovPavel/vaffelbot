@@ -80,7 +80,7 @@ def share_basket(id: int) -> str:
         prepared_inline_message = bot.bot.save_prepared_inline_message(
             user_id=request.user.telegram_id,
             result=InlineQueryResultPhoto(
-                id=uuid.uuid4(),
+                id=str(uuid.uuid4()),
                 photo_url=basket.photo_url,
                 thumbnail_url=basket.photo_url,
                 title=basket.name,
