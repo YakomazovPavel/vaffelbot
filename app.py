@@ -72,11 +72,13 @@ def get_basket(id: int) -> BasketModel:
         return Response(status=404)
 
 
-async def create_prepare_message():  # basket: Basket, telegram_id: int, id: str
+async def create_prepare_message(
+    telegram_id: int,
+):  # basket: Basket, telegram_id: int, id: str
     from bot import bot
 
     message = await bot.bot.save_prepared_inline_message(
-        user_id=422784914,
+        user_id=telegram_id,
         result=InlineQueryResultPhoto(
             id=str(uuid.uuid4()),
             # photo_url=basket.photo_url,
@@ -118,7 +120,7 @@ def share_basket(id: int) -> PrepareMessage:
         res_message = asyncio.run(
             create_prepare_message(
                 # basket=basket,
-                # telegram_id=request.user,
+                telegram_id=request.user.telegram_id,
                 # id=str(uuid.uuid4()),
             )
         )
