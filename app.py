@@ -15,6 +15,7 @@ from models import (
     BasketDishListModel,
     DishListModel,
     BasketListModel,
+    PrepareMessage,
 )
 from aiogram.types import (
     InlineQueryResultPhoto,
@@ -71,7 +72,7 @@ def get_basket(id: int) -> BasketModel:
         return Response(status=404)
 
 
-async def create_prepare_message(basket: Basket, telegram_id: int, id: str):
+async def create_prepare_message():  # basket: Basket, telegram_id: int, id: str
     from bot import bot
 
     message = await bot.bot.save_prepared_inline_message(
@@ -110,18 +111,18 @@ async def create_prepare_message(basket: Basket, telegram_id: int, id: str):
 @app.get("/api/baskets/<int:id>/share/")
 @cross_origin()
 @pydantic_api(name="Поделиться корзиной", tags=["Baskets"])
-def share_basket(id: int) -> str:
+def share_basket(id: int) -> PrepareMessage:
     basket = storage.get_basket_by_id(id=id)
     if basket:
-        print(f"telegram_id {request.user.telegram_id}")
+        print(f"telegram_id {request.user}")
         res_message = asyncio.run(
             create_prepare_message(
-                basket=basket,
-                telegram_id=request.user.telegram_id,
-                id=str(uuid.uuid4()),
+                # basket=basket,
+                # telegram_id=request.user,
+                # id=str(uuid.uuid4()),
             )
         )
-        Response(res_message.id, status=201)
+        return PrepareMessage(id=res_message.id)
     else:
         return Response(status=400)
 

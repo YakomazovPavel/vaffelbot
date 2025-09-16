@@ -80,3 +80,7 @@ class DishListModel(RootModel[List[DishModel]]): ...
 
 class GetBasketListRequestModel(BaseModel):
     user_id: int
+
+
+class PrepareMessage(BaseModel):
+    id: str
