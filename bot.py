@@ -20,6 +20,7 @@ from os import getenv
 from dotenv import load_dotenv
 from aiogram.client.session.aiohttp import AiohttpSession
 from aiogram.methods import SavePreparedInlineMessage
+import os
 
 baskets = [
     {
@@ -219,14 +220,18 @@ class Bot:
         await self.dp.start_polling(self.bot, skip_updates=True)
 
 
-load_dotenv()
+directory, filename = os.path.split(os.path.abspath(__file__))
+PATH_TO_ENV = os.path.join(directory, ".env")
+
+load_dotenv(PATH_TO_ENV)
 TELEGRAM_BOT_TOKEN = getenv("TELEGRAM_BOT_TOKEN")
 WEB_APP_URL = getenv("WEB_APP_URL")
 HTTP_PROXY = getenv("http_proxy")
 
 print(f"""
 ========================================================================================================================
-    
+
+PATH_TO_ENV         {PATH_TO_ENV}
 TELEGRAM_BOT_TOKEN  {TELEGRAM_BOT_TOKEN}
 WEB_APP_URL         {WEB_APP_URL}
 HTTP_PROXY          {HTTP_PROXY}
