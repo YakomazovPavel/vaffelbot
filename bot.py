@@ -1,3 +1,4 @@
+import uuid
 from aiogram import Bot as TGBot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode, MenuButtonType
@@ -180,10 +181,11 @@ class Bot:
 
         @self.dp.message(Command("prepare"))
         async def prepare(message: Message) -> None:
+            print(f"user_id {message.from_user.id}")
             res = await self.bot.save_prepared_inline_message(
                 user_id=message.from_user.id,
                 result=InlineQueryResultPhoto(
-                    id="123",
+                    id=str(uuid.uuid4()),
                     photo_url="https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/2.jpg",
                     thumbnail_url="https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/2.jpg",
                     title="title",
