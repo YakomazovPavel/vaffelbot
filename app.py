@@ -122,7 +122,7 @@ def share_basket(id: int) -> PrepareMessage:
     basket = storage.get_basket_by_id(id=id)
     if basket:
         print(f"telegram_id {request.user}")
-        res_message = asyncio.run(
+        res_message = asyncio.get_event_loop().run_until_complete(
             create_prepare_message(
                 # basket=basket,
                 telegram_id=request.user.telegram_id,
