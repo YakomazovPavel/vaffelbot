@@ -119,7 +119,7 @@ class Bot:
                 thumbnail_url=photo_bota,
                 description="Пригласите друзей с помощью реферальной ссылки",
                 input_message_content=InputTextMessageContent(
-                    message_text=f'Переходи в бота, чтобы создавать, делиться и заказывать свои корзины с вафлями\n<a href="{BOT_URL}">vaffel.ru</a>',
+                    message_text=f'Переходи в <a href="{BOT_URL}">бота</a>, чтобы создавать, делиться и заказывать свои корзины с вафлями от vaffel',
                     parse_mode=ParseMode.HTML,
                 ),
                 # reply_markup=InlineKeyboardMarkup(
