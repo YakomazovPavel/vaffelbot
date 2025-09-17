@@ -91,7 +91,7 @@ class Bot:
 
             photos = [
                 InlineQueryResultPhoto(
-                    id=basket.id,
+                    id=str(basket.id),
                     photo_url=PHOTO_URL + str(basket.photo_url),
                     thumbnail_url=PHOTO_URL + str(basket.photo_url),
                     title=basket.name,
