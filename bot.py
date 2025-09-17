@@ -25,32 +25,35 @@ from aiogram.client.session.aiohttp import AiohttpSession
 import os
 from storage import storage
 
-baskets = [
-    {
-        "id": "1",
-        "name": "Посиделки 2 ноября",
-        "photo": "https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/1.jpg",
-        "link": "https://t.me/vaffel2_bot/vaffel?startapp=1",  # "https://t.me/vaffel2_bot/start?startapp=123",
-    },
-    {
-        "id": "2",
-        "name": "Хеллоуин",
-        "photo": "https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/2.jpg",
-        "link": "https://t.me/vaffel2_bot/vaffel?startapp=1",  # Рабочая ссылка на приложение
-    },
-    {
-        "id": "3",
-        "name": "Тыквенный спас",
-        "photo": "https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/3.jpg",
-        "link": "https://t.me/vaffel2_bot/vaffel?startapp=1",
-    },
-    {
-        "id": "19",
-        "name": "Отчаяние",
-        "photo": "https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/4.jpg",
-        "link": "https://t.me/vaffel2_bot/vaffel?startapp=1",
-    },
-]
+PHOTO_URL = "https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/"
+BASKET_URL = "https://t.me/vaffel2_bot/vaffel?startapp="
+
+# baskets = [
+#     {
+#         "id": "1",
+#         "name": "Посиделки 2 ноября",
+#         "photo": "https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/1.jpg",
+#         "link": "https://t.me/vaffel2_bot/vaffel?startapp=1",  # "https://t.me/vaffel2_bot/start?startapp=123",
+#     },
+#     {
+#         "id": "2",
+#         "name": "Хеллоуин",
+#         "photo": "https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/2.jpg",
+#         "link": "https://t.me/vaffel2_bot/vaffel?startapp=1",  # Рабочая ссылка на приложение
+#     },
+#     {
+#         "id": "3",
+#         "name": "Тыквенный спас",
+#         "photo": "https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/3.jpg",
+#         "link": "https://t.me/vaffel2_bot/vaffel?startapp=1",
+#     },
+#     {
+#         "id": "19",
+#         "name": "Отчаяние",
+#         "photo": "https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/4.jpg",
+#         "link": "https://t.me/vaffel2_bot/vaffel?startapp=1",
+#     },
+# ]
 
 photo_bota = "https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/icon.jpg"
 
@@ -81,11 +84,34 @@ class Bot:
         async def inline_handler(query: InlineQuery):
             print("query", query)
 
-            res = storage.get_inline_baskets(
-                telegram_id=query.from_user.id, basket_name=query.query
+            baskets = storage.get_inline_baskets(
+                telegram_id=query.from_user.id,
+                basket_name=query.query,
             )
 
-            print(f"res {res}")
+            # print(f"res {res}")
+
+            photos = [
+                InlineQueryResultPhoto(
+                    id=basket.id,
+                    photo_url=PHOTO_URL + basket.photo_url,
+                    thumbnail_url=PHOTO_URL + basket.photo_url,
+                    title=basket.name,
+                    description=basket.id,
+                    caption=f'Добавляйте свои вафли в совместную корзину "{basket.name}"',
+                    reply_markup=InlineKeyboardMarkup(
+                        inline_keyboard=[
+                            [
+                                InlineKeyboardButton(
+                                    text="Добавить",
+                                    url=BASKET_URL + basket.id,
+                                )
+                            ]
+                        ]
+                    ),
+                )
+                for basket in baskets
+            ]
 
             article = InlineQueryResultArticle(
                 id="0",
@@ -97,27 +123,27 @@ class Bot:
                 ),
             )
 
-            photos = [
-                InlineQueryResultPhoto(
-                    id=basket.get("id"),
-                    photo_url=basket.get("photo"),
-                    thumbnail_url=basket.get("photo"),
-                    title=basket.get("name"),
-                    description=basket.get("id"),
-                    caption="Добавляем свои вафельки сюда",
-                    reply_markup=InlineKeyboardMarkup(
-                        inline_keyboard=[
-                            [
-                                InlineKeyboardButton(
-                                    text="Добавить",
-                                    url=basket.get("link"),
-                                )
-                            ]
-                        ]
-                    ),
-                )
-                for basket in baskets
-            ]
+            # photos = [
+            #     InlineQueryResultPhoto(
+            #         id=basket.get("id"),
+            #         photo_url=basket.get("photo"),
+            #         thumbnail_url=basket.get("photo"),
+            #         title=basket.get("name"),
+            #         description=basket.get("id"),
+            #         caption="Добавляем свои вафельки сюда",
+            #         reply_markup=InlineKeyboardMarkup(
+            #             inline_keyboard=[
+            #                 [
+            #                     InlineKeyboardButton(
+            #                         text="Добавить",
+            #                         url=basket.get("link"),
+            #                     )
+            #                 ]
+            #             ]
+            #         ),
+            #     )
+            #     for basket in baskets
+            # ]
 
             # photo = InlineQueryResultPhoto(
             #     id="1",
