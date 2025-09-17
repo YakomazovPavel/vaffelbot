@@ -20,7 +20,7 @@ from models import (
     DishListModel,
     BasketListModel,
 )
-from sqlalchemy.sql import func
+# from sqlalchemy.sql import func
 
 
 class Storage:
@@ -317,6 +317,39 @@ class Storage:
                     photo_url=basket_dish.dish.photo_url,
                 ),
             )
+
+    def get_inline_baskets(self, telegram_id: int, basket_name: str) -> BasketListModel:
+        baskets = (
+            self.session.query(Basket)
+            .join(BasketUser, Basket.id == BasketUser.basket_id)
+            .join(User, BasketUser.user_id == User.id)
+            .filter(User.telegram_id == telegram_id)
+            .filter(Basket.name.icontains(basket_name))
+            .all()
+        )
+
+        print(f"!get_inline_baskets {baskets}")
+
+        return BasketListModel(
+            [
+                BasketModel(
+                    id=basket.id,
+                    photo_url=basket.photo_url,
+                    author_id=basket.author_id,
+                    name=basket.name,
+                    is_locked=basket.is_locked,
+                    created=basket.created,
+                    updated=basket.updated,
+                )
+                for basket in baskets
+                # self.session.query(User)
+                # .join(Basket)
+                # .filter(User.telegram_id == telegram_id)
+                # .filter(Basket.name.contains(name))
+                # .first()
+                # .baskets
+            ]
+        )
 
 
 storage = Storage()

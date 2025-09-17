@@ -20,33 +20,35 @@ import asyncio
 from os import getenv
 from dotenv import load_dotenv
 from aiogram.client.session.aiohttp import AiohttpSession
-from aiogram.methods import SavePreparedInlineMessage
+
+# from aiogram.methods import SavePreparedInlineMessage
 import os
+from storage import storage
 
 baskets = [
     {
         "id": "1",
         "name": "Посиделки 2 ноября",
         "photo": "https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/1.jpg",
-        "link": "https://t.me/vaffel2_bot/vaffel",  # "https://t.me/vaffel2_bot/start?startapp=123",
+        "link": "https://t.me/vaffel2_bot/vaffel?startapp=1",  # "https://t.me/vaffel2_bot/start?startapp=123",
     },
     {
         "id": "2",
         "name": "Хеллоуин",
         "photo": "https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/2.jpg",
-        "link": "https://t.me/vaffel2_bot/vaffel?startapp=123",  # Рабочая ссылка на приложение
+        "link": "https://t.me/vaffel2_bot/vaffel?startapp=1",  # Рабочая ссылка на приложение
     },
     {
         "id": "3",
         "name": "Тыквенный спас",
         "photo": "https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/3.jpg",
-        "link": "https://t.me/vaffel2_bot/vaffel/start?startapp=123",
+        "link": "https://t.me/vaffel2_bot/vaffel?startapp=1",
     },
     {
         "id": "19",
         "name": "Отчаяние",
         "photo": "https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/4.jpg",
-        "link": "https://t.me/vaffel2_bot/start/vaffel?startapp=123",
+        "link": "https://t.me/vaffel2_bot/vaffel?startapp=1",
     },
 ]
 
@@ -79,6 +81,12 @@ class Bot:
         async def inline_handler(query: InlineQuery):
             print("query", query)
 
+            res = storage.get_inline_baskets(
+                telegram_id=query.from_user.id, basket_name=query.query
+            )
+
+            print(f"res {res}")
+
             article = InlineQueryResultArticle(
                 id="0",
                 title="Поделиться ботом",
@@ -96,20 +104,13 @@ class Bot:
                     thumbnail_url=basket.get("photo"),
                     title=basket.get("name"),
                     description=basket.get("id"),
-                    caption="Добавляем свои вафельки сюда",  # <a href={basket.get('link')}>сюда</a> \n{basket.get('link')}
-                    # parse_mode="HTML",
+                    caption="Добавляем свои вафельки сюда",
                     reply_markup=InlineKeyboardMarkup(
                         inline_keyboard=[
                             [
                                 InlineKeyboardButton(
                                     text="Добавить",
                                     url=basket.get("link"),
-                                    # login_url=LoginUrl(
-                                    #     url=BOT_DOMAIN,
-                                    # )
-                                    # web_app=WebAppInfo(
-                                    #     url="https://t.me/vaffel2_bot?startapp=sdf23&mode=compact"
-                                    # ),
                                 )
                             ]
                         ]

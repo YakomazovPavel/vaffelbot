@@ -29,8 +29,6 @@ from type import CreateUserRequest, CreateBasketRequest
 
 from storage import storage
 from middleware import AuthenticationMiddleware
-from database import Basket
-import traceback
 from bot import bot
 
 logger = logging.getLogger(__name__)
@@ -141,16 +139,6 @@ def create_basket(body: CreateBasketRequest) -> BasketModel:
         return Response(f"Пользователя {body.author_id} не найден", status=400)
 
 
-# /home/YakomazovPavel/projects/vaffelbot
-# /home/YakomazovPavel/vaffelbot/app.py
-
-
-# @app.get("/baskets/<int:basket_id>/dishes/")
-# @pydantic_api(name="Получить список корзин", tags=["Baskets"])
-# def get_baskets_dishes(id: str) -> List[BasketDish]:
-#     pass
-
-
 @app.get("/api/baskets/<int:basket_id>/dishes/")
 @cross_origin()
 @pydantic_api(
@@ -240,8 +228,3 @@ def create_user(body: CreateUserRequest) -> UserModel:
         )
 
     return user
-
-
-# @app.get("/users/{id}/", response_model=User, tags=["Users"])
-# def get_user(id: str) -> User:
-#     pass
