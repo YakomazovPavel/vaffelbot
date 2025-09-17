@@ -13,6 +13,7 @@ from aiogram.types import (
     InlineKeyboardMarkup,
     InlineKeyboardButton,
 )
+
 from aiogram.types.inline_query import InlineQuery
 from aiogram.filters.command import Command
 from aiogram.methods.set_chat_menu_button import SetChatMenuButton
@@ -118,18 +119,19 @@ class Bot:
                 thumbnail_url=photo_bota,
                 description="Пригласите друзей с помощью реферальной ссылки",
                 input_message_content=InputTextMessageContent(
-                    message_text="Переходи в бота, чтобы создавать, делиться и заказывать свои корзины с вафлями от vaffel.ru"
+                    message_text=f'Переходи в бота, чтобы создавать, делиться и заказывать свои корзины с вафлями<br/><a href="{BOT_URL}">vaffel.ru</a>',
+                    parse_mode=ParseMode.HTML,
                 ),
-                reply_markup=InlineKeyboardMarkup(
-                    inline_keyboard=[
-                        [
-                            InlineKeyboardButton(
-                                text="Добавить",
-                                url=BOT_URL,
-                            )
-                        ]
-                    ]
-                ),
+                # reply_markup=InlineKeyboardMarkup(
+                #     inline_keyboard=[
+                #         [
+                #             InlineKeyboardButton(
+                #                 text="Добавить",
+                #                 url=BOT_URL,
+                #             )
+                #         ]
+                #     ]
+                # ),
             )
 
             # photos = [
