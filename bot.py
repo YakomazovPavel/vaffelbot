@@ -89,13 +89,11 @@ class Bot:
                 basket_name=query.query,
             )
 
-            # print(f"res {res}")
-
             photos = [
                 InlineQueryResultPhoto(
                     id=basket.id,
-                    photo_url=PHOTO_URL + basket.photo_url,
-                    thumbnail_url=PHOTO_URL + basket.photo_url,
+                    photo_url=PHOTO_URL + str(basket.photo_url),
+                    thumbnail_url=PHOTO_URL + str(basket.photo_url),
                     title=basket.name,
                     description=basket.id,
                     caption=f'Добавляйте свои вафли в совместную корзину "{basket.name}"',
@@ -104,7 +102,7 @@ class Bot:
                             [
                                 InlineKeyboardButton(
                                     text="Добавить",
-                                    url=BASKET_URL + basket.id,
+                                    url=BASKET_URL + str(basket.id),
                                 )
                             ]
                         ]
