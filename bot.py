@@ -27,6 +27,7 @@ from storage import storage
 
 PHOTO_URL = "https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/"
 BASKET_URL = "https://t.me/vaffel2_bot/vaffel?startapp="
+BOT_URL = "https://t.me/vaffel2_bot/vaffel"
 
 # baskets = [
 #     {
@@ -95,7 +96,7 @@ class Bot:
                     photo_url=PHOTO_URL + str(basket.photo_url),
                     thumbnail_url=PHOTO_URL + str(basket.photo_url),
                     title=basket.name,
-                    description=str(basket.id),
+                    # description=str(basket.id),
                     caption=f'Добавляйте свои вафли в совместную корзину "{basket.name}"',
                     reply_markup=InlineKeyboardMarkup(
                         inline_keyboard=[
@@ -117,7 +118,17 @@ class Bot:
                 thumbnail_url=photo_bota,
                 description="Пригласите друзей с помощью реферальной ссылки",
                 input_message_content=InputTextMessageContent(
-                    message_text="input_message_content"
+                    message_text="Переходи в бота, чтобы создавать, делиться и заказывать свои корзины с вафлями от vaffel.ru"
+                ),
+                reply_markup=InlineKeyboardMarkup(
+                    inline_keyboard=[
+                        [
+                            InlineKeyboardButton(
+                                text="Добавить",
+                                url=BOT_URL,
+                            )
+                        ]
+                    ]
                 ),
             )
 
