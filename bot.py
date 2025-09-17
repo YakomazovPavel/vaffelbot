@@ -95,7 +95,7 @@ class Bot:
                     photo_url=PHOTO_URL + str(basket.photo_url),
                     thumbnail_url=PHOTO_URL + str(basket.photo_url),
                     title=basket.name,
-                    description=basket.id,
+                    description=str(basket.id),
                     caption=f'Добавляйте свои вафли в совместную корзину "{basket.name}"',
                     reply_markup=InlineKeyboardMarkup(
                         inline_keyboard=[
