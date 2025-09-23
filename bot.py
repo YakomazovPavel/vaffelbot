@@ -28,8 +28,8 @@ from storage import storage
 
 PHOTO_URL = "https://raw.githubusercontent.com/YakomazovPavel/YakomazovPavel.github.io/main/public/assets/"
 BASKET_URL = "https://t.me/vaffel2_bot/vaffel?startapp="
-BOT_URL = "https://t.me/vaffel2_bot/vaffel"
-
+# BOT_URL = "https://t.me/vaffel2_bot/vaffel"
+BOT_URL = "https://t.me/vaffel2_bot"
 # baskets = [
 #     {
 #         "id": "1",
