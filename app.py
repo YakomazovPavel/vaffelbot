@@ -217,7 +217,11 @@ def get_dishes() -> DishListModel:
 @cross_origin()
 @pydantic_api(name="Получить блюдо", tags=["Dishes"])
 def get_dish(dish_id: int) -> DishListModel:
-    return storage.get_dish_by_id(dish_id)
+    dish = storage.get_dish_by_id(dish_id)
+    if dish:
+        return dish
+    else:
+        return Response(f"Блюдо {dish_id} не найдено", status=404)
 
 
 @app.post("/api/users/")
