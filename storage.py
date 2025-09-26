@@ -185,8 +185,32 @@ class Storage:
                 telegram_id=user.telegram_id,
             )
 
-    def get_dish_by_id(self, id) -> Dish | None:
-        return self.session.query(Dish).filter(Dish.id == id).first()
+    def get_dish_by_id(self, id) -> DishModel | None:
+        dish = (
+            self.session.query(Dish)
+            .filter(Dish.id == id)
+            .options(joinedload(Dish.category))
+            .first()
+        )
+        if dish:
+            return DishModel(
+                id=dish.id,
+                category=CategoryModel(
+                    id=dish.category.id,
+                    name=dish.category.name,
+                )
+                if dish.category
+                else None,
+                name=dish.name,
+                description=dish.description,
+                price=dish.price,
+                calories=dish.calories,
+                proteins=dish.proteins,
+                fats=dish.fats,
+                carbs=dish.carbs,
+                weight=dish.weight,
+                photo_url=dish.photo_url,
+            )
 
     def create_basket_dish(
         self,

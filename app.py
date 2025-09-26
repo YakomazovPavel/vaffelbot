@@ -213,6 +213,13 @@ def get_dishes() -> DishListModel:
     return storage.get_dishes()
 
 
+@app.get("/api/dishes/<int:dish_id>/")
+@cross_origin()
+@pydantic_api(name="Получить блюдо", tags=["Dishes"])
+def get_dish(dish_id: int) -> DishListModel:
+    return storage.get_dish_by_id(dish_id)
+
+
 @app.post("/api/users/")
 @cross_origin()
 @pydantic_api(name="Создать пользователя", tags=["Users"])
