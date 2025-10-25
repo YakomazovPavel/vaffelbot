@@ -53,3 +53,11 @@ pip install fastapi-code-generator
 ```
 fastapi-codegen --input openapi.yml --output app
 ```
+
+## Список таблиц
+
+SELECT name FROM sqlite_master WHERE type='table';
+
+## Список столбцов в таблице
+
+PRAGMA table*info(имя*таблицы);

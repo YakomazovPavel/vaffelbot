@@ -12,3 +12,6 @@ drop:
 # 	chmod 666 vaffel.db
 	python database.py
 	python parser.py
+
+migrate:
+	alembic revision --autogenerate && alembic upgrade head

@@ -97,6 +97,7 @@ class Dish(Base):
     photo_url = Column(String, nullable=True)
     category_id: Mapped[int] = mapped_column(ForeignKey("category.id"))
     category: Mapped["Category"] = relationship()
+    color = Column(String, nullable=True)
 
 
 class Category(Base):
@@ -105,5 +106,5 @@ class Category(Base):
     name = Column(String)
 
 
-if __name__ == "__main__":
-    Base.metadata.create_all(bind=engine)
+# if __name__ == "__main__":
+#     Base.metadata.create_all(bind=engine)
