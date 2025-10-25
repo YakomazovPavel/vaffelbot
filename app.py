@@ -153,7 +153,7 @@ def get_baskets_dishes(basket_id: int) -> BasketDishListModel:
         return Response(f"Корзина {basket_id} не найдена", status=400)
 
 
-@app.get("/api/baskets/<int:basket_id>/dishes/<int:dish_id>")
+@app.get("/api/baskets/<int:basket_id>/dishes/<int:dish_id>/")
 @cross_origin()
 @pydantic_api(
     name="Получить товар из корзины",
