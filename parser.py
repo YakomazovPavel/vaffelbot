@@ -20,6 +20,7 @@ def parse_dishes(menu: dict):
                 weight=item.get("weight", None),
                 photo_url=item.get("photo", {}).get("webp", ""),
                 category_id=item.get("categoryId", None),
+                color="#dae0e4",
             )
         )
 
