@@ -75,7 +75,12 @@ class BasketsBasketIdDishesDishIdPostRequestModel(BaseModel):
 class CategoryListModel(RootModel[List[CategoryModel]]): ...
 
 
-class DishListModel(RootModel[List[DishModel]]): ...
+class DishListModel(RootModel[List[DishModel]]):
+    def __iter__(self):
+        return iter(self.root)
+
+    def __getitem__(self, item):
+        return self.root[item]
 
 
 class GetBasketListRequestModel(BaseModel):
