@@ -264,7 +264,7 @@ class Storage:
     ) -> BasketDishListModel:
         query = self.session.query(BasketDish).filter(BasketDish.basket_id == basket_id)
         if dish_id is not None:
-            query.filter(BasketDish.dish_id == dish_id)
+            query = query.filter(BasketDish.dish_id == dish_id)
 
         return BasketDishListModel(
             [
