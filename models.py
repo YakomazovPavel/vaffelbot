@@ -32,7 +32,7 @@ class UserModel(BaseModel):
         None,
         example="https://pic.rutube.ru/video/fa/17/fa1763b889c5e26146174f8878315143.jpg",
     )
-    telegram_id: int
+    telegram_id: int | str
 
 
 class BasketModel(BaseModel):

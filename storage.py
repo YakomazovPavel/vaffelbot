@@ -257,7 +257,15 @@ class Storage:
             ),
         )
 
-    def get_basket_dishes(self, basket_id) -> BasketDishListModel:
+    def get_basket_dishes(
+        self,
+        basket_id,
+        dish_id: int | None = None,
+    ) -> BasketDishListModel:
+        query = self.session.query(BasketDish).filter(BasketDish.basket_id == basket_id)
+        if dish_id is not None:
+            query.filter(BasketDish.dish_id == dish_id)
+
         return BasketDishListModel(
             [
                 BasketDishModel(
@@ -290,14 +298,15 @@ class Storage:
                         photo_url=basket_dish.dish.photo_url,
                     ),
                 )
-                for basket_dish in self.session.query(BasketDish)
-                .filter(BasketDish.basket_id == basket_id)
-                .all()
+                for basket_dish in query.all()
             ]
         )
 
     def check_basket_id(self, id) -> bool:
         return bool(self.session.query(Basket.id).filter(Basket.id == id).first())
+
+    def check_dish_id(self, id) -> bool:
+        return bool(self.session.query(Dish.id).filter(Dish.id == id).first())
 
     def remove_basket_dish(
         self, basket_id: int, dish_id: int

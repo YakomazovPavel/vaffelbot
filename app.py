@@ -153,6 +153,23 @@ def get_baskets_dishes(basket_id: int) -> BasketDishListModel:
         return Response(f"Корзина {basket_id} не найдена", status=400)
 
 
+@app.get("/api/baskets/<int:basket_id>/dishes/<int:dish_id>")
+@cross_origin()
+@pydantic_api(
+    name="Получить товар из корзины",
+    tags=["BasketDish"],
+)
+def get_baskets_dish(basket_id: int, dish_id: int) -> BasketDishListModel:
+    is_basket = storage.check_basket_id(id=basket_id)
+    is_dish = storage.check_dish_id(id=dish_id)
+    if not is_basket:
+        return Response(f"Корзина {basket_id} не найдена", status=404)
+    elif not is_dish:
+        return Response(f"Блюдо {basket_id} не найдена", status=404)
+    else:
+        return storage.get_basket_dishes(basket_id=basket_id, dish_id=dish_id)
+
+
 @app.post("/api/baskets/<int:basket_id>/dishes/<int:dish_id>/")
 @cross_origin()
 @pydantic_api(name="Создать товар в корзине", tags=["BasketDish"])
