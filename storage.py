@@ -60,6 +60,7 @@ class Storage:
                     carbs=dish.carbs,
                     weight=dish.weight,
                     photo_url=dish.photo_url,
+                    color=dish.color,
                 )
                 for dish in dishes
             ]

@@ -1,0 +1,1642 @@
+[
+    {
+        "dish_id": 1378166,
+        "color": "#d3d4dd"
+    },
+    {
+        "dish_id": 1378167,
+        "color": "#d7dfe3"
+    },
+    {
+        "dish_id": 1378168,
+        "color": "#cfd6df"
+    },
+    {
+        "dish_id": 1378169,
+        "color": "#d5dde3"
+    },
+    {
+        "dish_id": 1378170,
+        "color": "#cfd6df"
+    },
+    {
+        "dish_id": 1378171,
+        "color": "#d2d3dc"
+    },
+    {
+        "dish_id": 1378176,
+        "color": "#d3d6de"
+    },
+    {
+        "dish_id": 1378181,
+        "color": "#d8e1e0"
+    },
+    {
+        "dish_id": 1378182,
+        "color": "#dce3e3"
+    },
+    {
+        "dish_id": 1378183,
+        "color": "#d3d4df"
+    },
+    {
+        "dish_id": 1378184,
+        "color": "#d4d4d6"
+    },
+    {
+        "dish_id": 1378185,
+        "color": "#d3d6de"
+    },
+    {
+        "dish_id": 1378186,
+        "color": "#d3d6de"
+    },
+    {
+        "dish_id": 1378187,
+        "color": "#d8dfdf"
+    },
+    {
+        "dish_id": 1378188,
+        "color": "#d3d6de"
+    },
+    {
+        "dish_id": 1378189,
+        "color": "#d3d4df"
+    },
+    {
+        "dish_id": 1378191,
+        "color": "#d3d6de"
+    },
+    {
+        "dish_id": 1378192,
+        "color": "#d3d6de"
+    },
+    {
+        "dish_id": 1378193,
+        "color": "#d7dfe3"
+    },
+    {
+        "dish_id": 1378194,
+        "color": "#cfd0d6"
+    },
+    {
+        "dish_id": 1378195,
+        "color": "#cdd0d8"
+    },
+    {
+        "dish_id": 1378196,
+        "color": "#d3d4df"
+    },
+    {
+        "dish_id": 1378197,
+        "color": "#cdd0d8"
+    },
+    {
+        "dish_id": 1378199,
+        "color": "#dadde5"
+    },
+    {
+        "dish_id": 1378200,
+        "color": "#d3d6de"
+    },
+    {
+        "dish_id": 1378201,
+        "color": "#cccfd7"
+    },
+    {
+        "dish_id": 1378202,
+        "color": "#d6d7df"
+    },
+    {
+        "dish_id": 1378208,
+        "color": "#ced5d5"
+    },
+    {
+        "dish_id": 1378209,
+        "color": "#d1d6d4"
+    },
+    {
+        "dish_id": 1378210,
+        "color": "#d9d8db"
+    },
+    {
+        "dish_id": 1378211,
+        "color": "#ced3dd"
+    },
+    {
+        "dish_id": 1378212,
+        "color": "#d2d5df"
+    },
+    {
+        "dish_id": 1378213,
+        "color": "#ced3dd"
+    },
+    {
+        "dish_id": 1378214,
+        "color": "#b7c3c8"
+    },
+    {
+        "dish_id": 1378215,
+        "color": "#d3d8e1"
+    },
+    {
+        "dish_id": 1378218,
+        "color": "#cfd7dd"
+    },
+    {
+        "dish_id": 1378219,
+        "color": "#c1ced3"
+    },
+    {
+        "dish_id": 1378220,
+        "color": "#cfd7dd"
+    },
+    {
+        "dish_id": 1378222,
+        "color": "#ffffff"
+    },
+    {
+        "dish_id": 1378225,
+        "color": "#a9b1ba"
+    },
+    {
+        "dish_id": 1378226,
+        "color": "#e0e9e9"
+    },
+    {
+        "dish_id": 1378227,
+        "color": "#e0e9e9"
+    },
+    {
+        "dish_id": 1378229,
+        "color": "#e0e9e9"
+    },
+    {
+        "dish_id": 1378254,
+        "color": "#fd990b"
+    },
+    {
+        "dish_id": 1378255,
+        "color": "#dae0e4"
+    },
+    {
+        "dish_id": 1378256,
+        "color": "#dae0e4"
+    },
+    {
+        "dish_id": 1378258,
+        "color": "#dae0e4"
+    },
+    {
+        "dish_id": 1378259,
+        "color": "#dae0e4"
+    },
+    {
+        "dish_id": 1378260,
+        "color": "#dae0e4"
+    },
+    {
+        "dish_id": 1378261,
+        "color": "#dae0e4"
+    },
+    {
+        "dish_id": 1378262,
+        "color": "#dae0e4"
+    },
+    {
+        "dish_id": 1378263,
+        "color": "#dae0e4"
+    },
+    {
+        "dish_id": 1378264,
+        "color": "#dae0e4"
+    },
+    {
+        "dish_id": 1378265,
+        "color": "#dae0e4"
+    },
+    {
+        "dish_id": 1378266,
+        "color": "#dae0e4"
+    },
+    {
+        "dish_id": 1378267,
+        "color": "#dae0e4"
+    },
+    {
+        "dish_id": 1378268,
+        "color": "#dae0e4"
+    },
+    {
+        "dish_id": 1378269,
+        "color": "#dae0e4"
+    },
+    {
+        "dish_id": 1378270,
+        "color": "#dae0e4"
+    },
+    {
+        "dish_id": 1378271,
+        "color": "#dae0e4"
+    },
+    {
+        "dish_id": 1378272,
+        "color": "#dae0e4"
+    },
+    {
+        "dish_id": 1378273,
+        "color": "#dae0e4"
+    },
+    {
+        "dish_id": 1395201,
+        "color": "#fefefe"
+    },
+    {
+        "dish_id": 1395202,
+        "color": "#ffffff"
+    },
+    {
+        "dish_id": 1395203,
+        "color": "#fefefe"
+    },
+    {
+        "dish_id": 1467290,
+        "color": "#d3d6de"
+    },
+    {
+        "dish_id": 1484555,
+        "color": "#d3d6de"
+    },
+    {
+        "dish_id": 1486497,
+        "color": "#d3d6e0"
+    },
+    {
+        "dish_id": 1486498,
+        "color": "#d2d5dd"
+    },
+    {
+        "dish_id": 1486499,
+        "color": "#d1d4dc"
+    },
+    {
+        "dish_id": 1486500,
+        "color": "#d7dfe3"
+    },
+    {
+        "dish_id": 1489673,
+        "color": "#dde5e9"
+    },
+    {
+        "dish_id": 1489674,
+        "color": "#d6dddd"
+    },
+    {
+        "dish_id": 1489675,
+        "color": "#dbe6e9"
+    },
+    {
+        "dish_id": 1489677,
+        "color": "#d3d6e0"
+    },
+    {
+        "dish_id": 1489678,
+        "color": "#dce3e3"
+    },
+    {
+        "dish_id": 1489679,
+        "color": "#dce3e3"
+    },
+    {
+        "dish_id": 1489680,
+        "color": "#dce3e3"
+    },
+    {
+        "dish_id": 1489681,
+        "color": "#dee2e3"
+    },
+    {
+        "dish_id": 1489682,
+        "color": "#d3d6e0"
+    },
+    {
+        "dish_id": 1489683,
+        "color": "#d3d6de"
+    },
+    {
+        "dish_id": 1489684,
+        "color": "#c8cdd7"
+    },
+    {
+        "dish_id": 1489685,
+        "color": "#d7dfe3"
+    },
+    {
+        "dish_id": 1489686,
+        "color": "#d3d6de"
+    },
+    {
+        "dish_id": 1489687,
+        "color": "#cfd6df"
+    },
+    {
+        "dish_id": 1489688,
+        "color": "#d5dde3"
+    },
+    {
+        "dish_id": 1489689,
+        "color": "#d2dae1"
+    },
+    {
+        "dish_id": 1489690,
+        "color": "#ccd1db"
+    },
+    {
+        "dish_id": 1489691,
+        "color": "#d2d5df"
+    },
+    {
+        "dish_id": 1489692,
+        "color": "#ced3dd"
+    },
+    {
+        "dish_id": 1489693,
+        "color": "#d5dde3"
+    },
+    {
+        "dish_id": 1489694,
+        "color": "#cbd3dc"
+    },
+    {
+        "dish_id": 1489695,
+        "color": "#dde9e9"
+    },
+    {
+        "dish_id": 1489696,
+        "color": "#d6dee4"
+    },
+    {
+        "dish_id": 1489697,
+        "color": "#d2e1e5"
+    },
+    {
+        "dish_id": 1489698,
+        "color": "#d7dfe5"
+    },
+    {
+        "dish_id": 1489699,
+        "color": "#cbdade"
+    },
+    {
+        "dish_id": 1489700,
+        "color": "#a8b0b7"
+    },
+    {
+        "dish_id": 1489701,
+        "color": "#cddde1"
+    },
+    {
+        "dish_id": 1489702,
+        "color": "#cad2d8"
+    },
+    {
+        "dish_id": 1489703,
+        "color": "#cbdade"
+    },
+    {
+        "dish_id": 1489704,
+        "color": "#a7b0b2"
+    },
+    {
+        "dish_id": 1489705,
+        "color": "#b2bac0"
+    },
+    {
+        "dish_id": 1489706,
+        "color": "#d4dfe0"
+    },
+    {
+        "dish_id": 1489707,
+        "color": "#aeb6bd"
+    },
+    {
+        "dish_id": 1489708,
+        "color": "#d3dbe2"
+    },
+    {
+        "dish_id": 1489709,
+        "color": "#dca340"
+    },
+    {
+        "dish_id": 1489710,
+        "color": "#d1a06e"
+    },
+    {
+        "dish_id": 1489711,
+        "color": "#d1a06e"
+    },
+    {
+        "dish_id": 1489712,
+        "color": "#daa440"
+    },
+    {
+        "dish_id": 1489713,
+        "color": "#daa440"
+    },
+    {
+        "dish_id": 1489714,
+        "color": "#d1a06e"
+    },
+    {
+        "dish_id": 1517699,
+        "color": "#d5d5e0"
+    },
+    {
+        "dish_id": 1517700,
+        "color": "#cfd6df"
+    },
+    {
+        "dish_id": 1517701,
+        "color": "#d5dde3"
+    },
+    {
+        "dish_id": 1517702,
+        "color": "#cad2db"
+    },
+    {
+        "dish_id": 1517703,
+        "color": "#cfd6df"
+    },
+    {
+        "dish_id": 1524184,
+        "color": "#cfd7dd"
+    },
+    {
+        "dish_id": 1524185,
+        "color": "#cad2db"
+    },
+    {
+        "dish_id": 1524186,
+        "color": "#d3d6de"
+    },
+    {
+        "dish_id": 1533225,
+        "color": "#c9dae2"
+    },
+    {
+        "dish_id": 1533226,
+        "color": "#ccd6de"
+    },
+    {
+        "dish_id": 1533227,
+        "color": "#c9dae2"
+    },
+    {
+        "dish_id": 1533228,
+        "color": "#c0cccc"
+    },
+    {
+        "dish_id": 1562147,
+        "color": "#d0d8e0"
+    },
+    {
+        "dish_id": 1562148,
+        "color": "#d7dfe3"
+    },
+    {
+        "dish_id": 1562149,
+        "color": "#d4d7df"
+    },
+    {
+        "dish_id": 1562178,
+        "color": "#ffffff"
+    },
+    {
+        "dish_id": 1562179,
+        "color": "#ffffff"
+    },
+    {
+        "dish_id": 1562180,
+        "color": "#fefefe"
+    },
+    {
+        "dish_id": 1564557,
+        "color": "#c8bca0"
+    },
+    {
+        "dish_id": 1591295,
+        "color": "#d0d8e0"
+    },
+    {
+        "dish_id": 1591296,
+        "color": "#d7dfe3"
+    },
+    {
+        "dish_id": 1591297,
+        "color": "#cdd1d6"
+    },
+    {
+        "dish_id": 1591298,
+        "color": "#d3d6de"
+    },
+    {
+        "dish_id": 1591299,
+        "color": "#d2dae1"
+    },
+    {
+        "dish_id": 1591300,
+        "color": "#d0d8e0"
+    },
+    {
+        "dish_id": 1591301,
+        "color": "#d3d6de"
+    },
+    {
+        "dish_id": 1591302,
+        "color": "#d4d7df"
+    },
+    {
+        "dish_id": 1591303,
+        "color": "#ccd1d8"
+    },
+    {
+        "dish_id": 1591304,
+        "color": "#d2d5dd"
+    },
+    {
+        "dish_id": 1591305,
+        "color": "#cfd7dd"
+    },
+    {
+        "dish_id": 1591306,
+        "color": "#cfd7dd"
+    },
+    {
+        "dish_id": 1591307,
+        "color": "#cad2d8"
+    },
+    {
+        "dish_id": 1591308,
+        "color": "#d2dae1"
+    },
+    {
+        "dish_id": 1591309,
+        "color": "#dadee3"
+    },
+    {
+        "dish_id": 1591310,
+        "color": "#cad2db"
+    },
+    {
+        "dish_id": 1591311,
+        "color": "#cfd7dd"
+    },
+    {
+        "dish_id": 1591312,
+        "color": "#d3d4dd"
+    },
+    {
+        "dish_id": 1591313,
+        "color": "#d3d4dd"
+    },
+    {
+        "dish_id": 1591315,
+        "color": "#d2d5dd"
+    },
+    {
+        "dish_id": 1591316,
+        "color": "#d1d4dc"
+    },
+    {
+        "dish_id": 1591317,
+        "color": "#d5dde3"
+    },
+    {
+        "dish_id": 1591318,
+        "color": "#d3d4dd"
+    },
+    {
+        "dish_id": 1591319,
+        "color": "#d7dfe3"
+    },
+    {
+        "dish_id": 1591320,
+        "color": "#d3d4dd"
+    },
+    {
+        "dish_id": 1591321,
+        "color": "#d2d3dc"
+    },
+    {
+        "dish_id": 1591322,
+        "color": "#d3d4dd"
+    },
+    {
+        "dish_id": 1591323,
+        "color": "#d5d5de"
+    },
+    {
+        "dish_id": 1591324,
+        "color": "#d3d6de"
+    },
+    {
+        "dish_id": 1591325,
+        "color": "#ccd1d8"
+    },
+    {
+        "dish_id": 1591326,
+        "color": "#d2d5dd"
+    },
+    {
+        "dish_id": 1591327,
+        "color": "#d5d8e3"
+    },
+    {
+        "dish_id": 1591328,
+        "color": "#d3d6de"
+    },
+    {
+        "dish_id": 1591329,
+        "color": "#d2d3dc"
+    },
+    {
+        "dish_id": 1591330,
+        "color": "#cfd6df"
+    },
+    {
+        "dish_id": 1591331,
+        "color": "#cfd7dd"
+    },
+    {
+        "dish_id": 1591333,
+        "color": "#d2dae1"
+    },
+    {
+        "dish_id": 1591334,
+        "color": "#d7dfe3"
+    },
+    {
+        "dish_id": 1591335,
+        "color": "#cfd6df"
+    },
+    {
+        "dish_id": 1591336,
+        "color": "#cfd7dd"
+    },
+    {
+        "dish_id": 1591341,
+        "color": "#959490"
+    },
+    {
+        "dish_id": 1591342,
+        "color": "#878881"
+    },
+    {
+        "dish_id": 1602481,
+        "color": "#cfdae1"
+    },
+    {
+        "dish_id": 1602482,
+        "color": "#c8d3db"
+    },
+    {
+        "dish_id": 1602483,
+        "color": "#c9dbe0"
+    },
+    {
+        "dish_id": 1633959,
+        "color": "#d5d9e1"
+    },
+    {
+        "dish_id": 1633960,
+        "color": "#d4d9e3"
+    },
+    {
+        "dish_id": 1633962,
+        "color": "#d5d9e1"
+    },
+    {
+        "dish_id": 1633963,
+        "color": "#d5d8e3"
+    },
+    {
+        "dish_id": 1633974,
+        "color": "#d7d7e3"
+    },
+    {
+        "dish_id": 1633977,
+        "color": "#d5d8e3"
+    },
+    {
+        "dish_id": 1633990,
+        "color": "#d7d7e3"
+    },
+    {
+        "dish_id": 1633993,
+        "color": "#d4d7df"
+    },
+    {
+        "dish_id": 1633996,
+        "color": "#d5d8e3"
+    },
+    {
+        "dish_id": 1633998,
+        "color": "#d4d9e3"
+    },
+    {
+        "dish_id": 1634000,
+        "color": "#d4d9e3"
+    },
+    {
+        "dish_id": 1634002,
+        "color": "#d5d8e3"
+    },
+    {
+        "dish_id": 1634006,
+        "color": "#d5d8e3"
+    },
+    {
+        "dish_id": 1634008,
+        "color": "#d4d9e3"
+    },
+    {
+        "dish_id": 1641985,
+        "color": "#cfd6df"
+    },
+    {
+        "dish_id": 1644178,
+        "color": "#dbe6e9"
+    },
+    {
+        "dish_id": 1663808,
+        "color": "#d4dbdb"
+    },
+    {
+        "dish_id": 1663809,
+        "color": "#dae4e3"
+    },
+    {
+        "dish_id": 1663810,
+        "color": "#d4dbdb"
+    },
+    {
+        "dish_id": 1685222,
+        "color": "#d6d7df"
+    },
+    {
+        "dish_id": 1687238,
+        "color": "#d3d4e1"
+    },
+    {
+        "dish_id": 1687239,
+        "color": "#cfd6df"
+    },
+    {
+        "dish_id": 1687608,
+        "color": "#91949c"
+    },
+    {
+        "dish_id": 1687609,
+        "color": "#a0a9ad"
+    },
+    {
+        "dish_id": 1687610,
+        "color": "#c5cbcb"
+    },
+    {
+        "dish_id": 1687611,
+        "color": "#7b7e86"
+    },
+    {
+        "dish_id": 1687612,
+        "color": "#b0b7b6"
+    },
+    {
+        "dish_id": 1687613,
+        "color": "#9da5a9"
+    },
+    {
+        "dish_id": 1687614,
+        "color": "#adaeb9"
+    },
+    {
+        "dish_id": 1687615,
+        "color": "#949a9f"
+    },
+    {
+        "dish_id": 1687616,
+        "color": "#84858e"
+    },
+    {
+        "dish_id": 1687867,
+        "color": "#5f654e"
+    },
+    {
+        "dish_id": 1690156,
+        "color": "#adbabf"
+    },
+    {
+        "dish_id": 1713078,
+        "color": "#cfd0d6"
+    },
+    {
+        "dish_id": 1713079,
+        "color": "#d7dfe3"
+    },
+    {
+        "dish_id": 1713138,
+        "color": "#aebdc1"
+    },
+    {
+        "dish_id": 1715279,
+        "color": "#d7dfe3"
+    },
+    {
+        "dish_id": 1732171,
+        "color": "#d7d7e3"
+    },
+    {
+        "dish_id": 1732172,
+        "color": "#d9dce4"
+    },
+    {
+        "dish_id": 1732175,
+        "color": "#d0d4d5"
+    },
+    {
+        "dish_id": 1732176,
+        "color": "#cbd3dc"
+    },
+    {
+        "dish_id": 1732178,
+        "color": "#cbdade"
+    },
+    {
+        "dish_id": 1747873,
+        "color": "#d3d4dd"
+    },
+    {
+        "dish_id": 1747874,
+        "color": "#d2d5df"
+    },
+    {
+        "dish_id": 1747875,
+        "color": "#d3d4dd"
+    },
+    {
+        "dish_id": 1747876,
+        "color": "#d2d5dd"
+    },
+    {
+        "dish_id": 1754076,
+        "color": "#d0d8e0"
+    },
+    {
+        "dish_id": 1758350,
+        "color": "#d7d7e3"
+    },
+    {
+        "dish_id": 1777156,
+        "color": "#d4d9e1"
+    },
+    {
+        "dish_id": 1788285,
+        "color": "#d3d4df"
+    },
+    {
+        "dish_id": 1805519,
+        "color": "#506683"
+    },
+    {
+        "dish_id": 1805520,
+        "color": "#527098"
+    },
+    {
+        "dish_id": 1805521,
+        "color": "#6782a2"
+    },
+    {
+        "dish_id": 1805522,
+        "color": "#687591"
+    },
+    {
+        "dish_id": 1805523,
+        "color": "#5a6d8f"
+    },
+    {
+        "dish_id": 1805524,
+        "color": "#70759a"
+    },
+    {
+        "dish_id": 1805525,
+        "color": "#727ea5"
+    },
+    {
+        "dish_id": 1805526,
+        "color": "#56657b"
+    },
+    {
+        "dish_id": 1805527,
+        "color": "#9096aa"
+    },
+    {
+        "dish_id": 1805528,
+        "color": "#778db1"
+    },
+    {
+        "dish_id": 1805529,
+        "color": "#dae0e4"
+    },
+    {
+        "dish_id": 1805530,
+        "color": "#566c89"
+    },
+    {
+        "dish_id": 1805533,
+        "color": "#6e809a"
+    },
+    {
+        "dish_id": 1805534,
+        "color": "#69778e"
+    },
+    {
+        "dish_id": 1807185,
+        "color": "#767f56"
+    },
+    {
+        "dish_id": 1807186,
+        "color": "#e9e6d9"
+    },
+    {
+        "dish_id": 1807187,
+        "color": "#d2d5dd"
+    },
+    {
+        "dish_id": 1807188,
+        "color": "#adaeb9"
+    },
+    {
+        "dish_id": 1807189,
+        "color": "#d2d5dd"
+    },
+    {
+        "dish_id": 1807190,
+        "color": "#dce3e3"
+    },
+    {
+        "dish_id": 1807191,
+        "color": "#d3d6de"
+    },
+    {
+        "dish_id": 1807193,
+        "color": "#d9dce4"
+    },
+    {
+        "dish_id": 1807194,
+        "color": "#d5d5e0"
+    },
+    {
+        "dish_id": 1807195,
+        "color": "#cad2db"
+    },
+    {
+        "dish_id": 1807196,
+        "color": "#d7dfe3"
+    },
+    {
+        "dish_id": 1807197,
+        "color": "#d4d7df"
+    },
+    {
+        "dish_id": 1807198,
+        "color": "#d2d5dd"
+    },
+    {
+        "dish_id": 1807199,
+        "color": "#cdd1d6"
+    },
+    {
+        "dish_id": 1807200,
+        "color": "#d6d7df"
+    },
+    {
+        "dish_id": 1807201,
+        "color": "#d4dadf"
+    },
+    {
+        "dish_id": 1807204,
+        "color": "#d2dae1"
+    },
+    {
+        "dish_id": 1807205,
+        "color": "#d2d5dd"
+    },
+    {
+        "dish_id": 1807207,
+        "color": "#d2d5dd"
+    },
+    {
+        "dish_id": 1807208,
+        "color": "#d2d5df"
+    },
+    {
+        "dish_id": 1807209,
+        "color": "#cbd3dc"
+    },
+    {
+        "dish_id": 1808666,
+        "color": "#d2d5dd"
+    },
+    {
+        "dish_id": 1823061,
+        "color": "#d2d5df"
+    },
+    {
+        "dish_id": 1853770,
+        "color": "#f2bac4"
+    },
+    {
+        "dish_id": 1866906,
+        "color": "#b8c5c9"
+    },
+    {
+        "dish_id": 1866909,
+        "color": "#aebdc1"
+    },
+    {
+        "dish_id": 1866910,
+        "color": "#aebdc1"
+    },
+    {
+        "dish_id": 1867875,
+        "color": "#c9dae2"
+    },
+    {
+        "dish_id": 1867876,
+        "color": "#c8d5da"
+    },
+    {
+        "dish_id": 1867877,
+        "color": "#c8d5da"
+    },
+    {
+        "dish_id": 1867878,
+        "color": "#c0cccc"
+    },
+    {
+        "dish_id": 1867879,
+        "color": "#bfced5"
+    },
+    {
+        "dish_id": 1867880,
+        "color": "#d2d5dd"
+    },
+    {
+        "dish_id": 1867881,
+        "color": "#c6d7dd"
+    },
+    {
+        "dish_id": 1867882,
+        "color": "#cfd7dd"
+    },
+    {
+        "dish_id": 1867883,
+        "color": "#d2d5dd"
+    },
+    {
+        "dish_id": 1867884,
+        "color": "#d3d6de"
+    },
+    {
+        "dish_id": 1867885,
+        "color": "#c6d7dd"
+    },
+    {
+        "dish_id": 1867889,
+        "color": "#d3d8df"
+    },
+    {
+        "dish_id": 1867890,
+        "color": "#d1d9df"
+    },
+    {
+        "dish_id": 1867891,
+        "color": "#d1d9df"
+    },
+    {
+        "dish_id": 1867892,
+        "color": "#d1d9df"
+    },
+    {
+        "dish_id": 1868046,
+        "color": "#d1d9e1"
+    },
+    {
+        "dish_id": 1868047,
+        "color": "#cfd7dd"
+    },
+    {
+        "dish_id": 1868048,
+        "color": "#d1dbe3"
+    },
+    {
+        "dish_id": 1868049,
+        "color": "#d1dbe3"
+    },
+    {
+        "dish_id": 1868050,
+        "color": "#c8dadf"
+    },
+    {
+        "dish_id": 1869384,
+        "color": "#d2d5dd"
+    },
+    {
+        "dish_id": 1869385,
+        "color": "#d2d5dd"
+    },
+    {
+        "dish_id": 1869396,
+        "color": "#909090"
+    },
+    {
+        "dish_id": 1869397,
+        "color": "#c6d7dd"
+    },
+    {
+        "dish_id": 1939701,
+        "color": "#d1d9e1"
+    },
+    {
+        "dish_id": 1939702,
+        "color": "#d1d9e1"
+    },
+    {
+        "dish_id": 1939703,
+        "color": "#d1d9e1"
+    },
+    {
+        "dish_id": 1939704,
+        "color": "#d1d9e1"
+    },
+    {
+        "dish_id": 1939705,
+        "color": "#d1d9e1"
+    },
+    {
+        "dish_id": 1939706,
+        "color": "#d3d4dd"
+    },
+    {
+        "dish_id": 1939707,
+        "color": "#d5d5de"
+    },
+    {
+        "dish_id": 1939708,
+        "color": "#d1d9e1"
+    },
+    {
+        "dish_id": 1952905,
+        "color": "#d1a06e"
+    },
+    {
+        "dish_id": 1979962,
+        "color": "#d3d4dd"
+    },
+    {
+        "dish_id": 1985116,
+        "color": "#d5dde3"
+    },
+    {
+        "dish_id": 1985117,
+        "color": "#cfd7dd"
+    },
+    {
+        "dish_id": 1985118,
+        "color": "#d5d5de"
+    },
+    {
+        "dish_id": 1985119,
+        "color": "#cfd7dd"
+    },
+    {
+        "dish_id": 1985120,
+        "color": "#d2d5dd"
+    },
+    {
+        "dish_id": 1985121,
+        "color": "#d3d4dd"
+    },
+    {
+        "dish_id": 1985123,
+        "color": "#d7dfe3"
+    },
+    {
+        "dish_id": 1985124,
+        "color": "#d1d4dc"
+    },
+    {
+        "dish_id": 1985125,
+        "color": "#d5d8e3"
+    },
+    {
+        "dish_id": 1985126,
+        "color": "#d2d5dd"
+    },
+    {
+        "dish_id": 1985127,
+        "color": "#cad2db"
+    },
+    {
+        "dish_id": 1985128,
+        "color": "#cfd6df"
+    },
+    {
+        "dish_id": 1985129,
+        "color": "#d2d5dd"
+    },
+    {
+        "dish_id": 1985130,
+        "color": "#d3d6e0"
+    },
+    {
+        "dish_id": 1985131,
+        "color": "#cad2d8"
+    },
+    {
+        "dish_id": 1985132,
+        "color": "#dae0e4"
+    },
+    {
+        "dish_id": 1985133,
+        "color": "#d2d3dc"
+    },
+    {
+        "dish_id": 1985134,
+        "color": "#d2dae1"
+    },
+    {
+        "dish_id": 1985135,
+        "color": "#cfd6df"
+    },
+    {
+        "dish_id": 1985136,
+        "color": "#d3d6de"
+    },
+    {
+        "dish_id": 1985137,
+        "color": "#d4d7df"
+    },
+    {
+        "dish_id": 1985138,
+        "color": "#cfd6df"
+    },
+    {
+        "dish_id": 1985142,
+        "color": "#cacad8"
+    },
+    {
+        "dish_id": 1985143,
+        "color": "#d3d4dd"
+    },
+    {
+        "dish_id": 1985144,
+        "color": "#ccd1d8"
+    },
+    {
+        "dish_id": 1985145,
+        "color": "#d3d4e1"
+    },
+    {
+        "dish_id": 1985146,
+        "color": "#d1dbe3"
+    },
+    {
+        "dish_id": 1985147,
+        "color": "#d3d4dd"
+    },
+    {
+        "dish_id": 1985148,
+        "color": "#d3d4dd"
+    },
+    {
+        "dish_id": 1985149,
+        "color": "#c9dbe0"
+    },
+    {
+        "dish_id": 1985150,
+        "color": "#c8d3db"
+    },
+    {
+        "dish_id": 1985151,
+        "color": "#d3d4dd"
+    },
+    {
+        "dish_id": 1985152,
+        "color": "#c9dbe0"
+    },
+    {
+        "dish_id": 1985153,
+        "color": "#d5d5de"
+    },
+    {
+        "dish_id": 1985154,
+        "color": "#c9dbe0"
+    },
+    {
+        "dish_id": 1985155,
+        "color": "#cfdae1"
+    },
+    {
+        "dish_id": 1985156,
+        "color": "#cfdae1"
+    },
+    {
+        "dish_id": 1985157,
+        "color": "#cdd0d8"
+    },
+    {
+        "dish_id": 1985158,
+        "color": "#c9dbe0"
+    },
+    {
+        "dish_id": 1985159,
+        "color": "#d1dbe3"
+    },
+    {
+        "dish_id": 1985160,
+        "color": "#d3d4dd"
+    },
+    {
+        "dish_id": 1985161,
+        "color": "#d3d4dd"
+    },
+    {
+        "dish_id": 1985162,
+        "color": "#cfd7dd"
+    },
+    {
+        "dish_id": 1985163,
+        "color": "#d2d5dd"
+    },
+    {
+        "dish_id": 1985164,
+        "color": "#cddde1"
+    },
+    {
+        "dish_id": 1985165,
+        "color": "#cfd7dd"
+    },
+    {
+        "dish_id": 1985166,
+        "color": "#cfd7dd"
+    },
+    {
+        "dish_id": 1985167,
+        "color": "#c7d4d8"
+    },
+    {
+        "dish_id": 1985168,
+        "color": "#cddde1"
+    },
+    {
+        "dish_id": 1985169,
+        "color": "#d7dfe5"
+    },
+    {
+        "dish_id": 1985170,
+        "color": "#adbcc0"
+    },
+    {
+        "dish_id": 1985171,
+        "color": "#b9c1c7"
+    },
+    {
+        "dish_id": 1985172,
+        "color": "#b9c1c7"
+    },
+    {
+        "dish_id": 1985173,
+        "color": "#b7bfc6"
+    },
+    {
+        "dish_id": 1985174,
+        "color": "#2acef9"
+    },
+    {
+        "dish_id": 1985175,
+        "color": "#2acef9"
+    },
+    {
+        "dish_id": 1985176,
+        "color": "#2acef9"
+    },
+    {
+        "dish_id": 1985177,
+        "color": "#d6e1e6"
+    },
+    {
+        "dish_id": 1985178,
+        "color": "#d0dfe3"
+    },
+    {
+        "dish_id": 1985179,
+        "color": "#dae0e4"
+    },
+    {
+        "dish_id": 1985180,
+        "color": "#d1d9e1"
+    },
+    {
+        "dish_id": 1994087,
+        "color": "#dfe6e6"
+    },
+    {
+        "dish_id": 1994088,
+        "color": "#e2e7e7"
+    },
+    {
+        "dish_id": 1994090,
+        "color": "#c9c9c9"
+    },
+    {
+        "dish_id": 1994092,
+        "color": "#cfdee2"
+    },
+    {
+        "dish_id": 1994093,
+        "color": "#d3dde5"
+    },
+    {
+        "dish_id": 1994094,
+        "color": "#d9d9d9"
+    },
+    {
+        "dish_id": 1994095,
+        "color": "#d0d8de"
+    },
+    {
+        "dish_id": 1994096,
+        "color": "#d3dde5"
+    },
+    {
+        "dish_id": 1994097,
+        "color": "#d0d0d0"
+    },
+    {
+        "dish_id": 1994098,
+        "color": "#d3dbe4"
+    },
+    {
+        "dish_id": 1994099,
+        "color": "#d3dbe2"
+    },
+    {
+        "dish_id": 1994100,
+        "color": "#e8e8e8"
+    },
+    {
+        "dish_id": 1994101,
+        "color": "#c8c8c8"
+    },
+    {
+        "dish_id": 1994102,
+        "color": "#e7e7e7"
+    },
+    {
+        "dish_id": 1994104,
+        "color": "#d5d5d5"
+    },
+    {
+        "dish_id": 1994105,
+        "color": "#dbdbdb"
+    },
+    {
+        "dish_id": 1994106,
+        "color": "#cfdee2"
+    },
+    {
+        "dish_id": 1995946,
+        "color": "#b2bac0"
+    },
+    {
+        "dish_id": 1995947,
+        "color": "#d3d4dd"
+    },
+    {
+        "dish_id": 1995948,
+        "color": "#c8d3db"
+    },
+    {
+        "dish_id": 1996008,
+        "color": "#fefefe"
+    },
+    {
+        "dish_id": 1996010,
+        "color": "#fefefe"
+    },
+    {
+        "dish_id": 1996011,
+        "color": "#ffffff"
+    },
+    {
+        "dish_id": 1996082,
+        "color": "#dbdbdb"
+    },
+    {
+        "dish_id": 1996083,
+        "color": "#d5d5d5"
+    },
+    {
+        "dish_id": 1996084,
+        "color": "#cbcbcb"
+    },
+    {
+        "dish_id": 1996948,
+        "color": "#d3d6e0"
+    },
+    {
+        "dish_id": 1996949,
+        "color": "#d3d4df"
+    },
+    {
+        "dish_id": 1996950,
+        "color": "#cfd6df"
+    },
+    {
+        "dish_id": 1996951,
+        "color": "#d3d6de"
+    },
+    {
+        "dish_id": 1996952,
+        "color": "#d3d6de"
+    },
+    {
+        "dish_id": 1996954,
+        "color": "#d3d6de"
+    },
+    {
+        "dish_id": 1996955,
+        "color": "#d3d6de"
+    },
+    {
+        "dish_id": 1996956,
+        "color": "#d0d8e0"
+    },
+    {
+        "dish_id": 1997196,
+        "color": "#dae0e4"
+    },
+    {
+        "dish_id": 1997197,
+        "color": "#fefefe"
+    },
+    {
+        "dish_id": 1997198,
+        "color": "#fefefe"
+    },
+    {
+        "dish_id": 1997199,
+        "color": "#ffffff"
+    },
+    {
+        "dish_id": 2021746,
+        "color": "#dee5e5"
+    },
+    {
+        "dish_id": 2021747,
+        "color": "#dddddd"
+    },
+    {
+        "dish_id": 2021748,
+        "color": "#e2e7e7"
+    },
+    {
+        "dish_id": 2021749,
+        "color": "#d4dbdb"
+    },
+    {
+        "dish_id": 2021750,
+        "color": "#e8e5e9"
+    },
+    {
+        "dish_id": 2021751,
+        "color": "#d7dfe3"
+    },
+    {
+        "dish_id": 2021752,
+        "color": "#dae0e4"
+    },
+    {
+        "dish_id": 2027995,
+        "color": "#dae0e4"
+    },
+    {
+        "dish_id": 2029833,
+        "color": "#dae0e4"
+    },
+    {
+        "dish_id": 2029834,
+        "color": "#dae0e4"
+    }
+]

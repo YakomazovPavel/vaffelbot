@@ -21,6 +21,7 @@ class DishModel(BaseModel):
     carbs: Optional[float] = None
     weight: Optional[float] = None
     photo_url: Optional[str] = None
+    color: Optional[str] = None
 
 
 class UserModel(BaseModel):
