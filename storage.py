@@ -316,7 +316,7 @@ class Storage:
     ) -> BasketDishModel | None:
         basket_dish = (
             self.session.query(BasketDish)
-            .options(joinedload(BasketDish.user))
+            .options(joinedload(BasketDish.user), joinedload(BasketDish.dish))
             .filter_by(basket_id=basket_id, dish_id=dish_id)
             .first()
         )
