@@ -62,10 +62,10 @@ def update_colors_from_json():
         data = json.load(file)
         for dish in data:
             try:
-                print(f"dish ({dish.get('id')}) new color {dish.get('color')}")
-                storage.session.query(Dish).filter(Dish.id == dish.get("id")).update(
-                    {"color": dish.get("color")}
-                )
+                print(f"dish ({dish.get('dish_id')}) new color {dish.get('color')}")
+                storage.session.query(Dish).filter(
+                    Dish.id == dish.get("dish_id")
+                ).update({"color": dish.get("color")})
                 storage.session.commit()
                 updated_count += 1
             except Exception as e:
