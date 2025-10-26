@@ -63,7 +63,7 @@ def update_colors_from_json():
         for dish in data:
             try:
                 print(f"dish ({dish.get('id')}) new color {dish.get('color')}")
-                storage.session.query(Dish).filter(Dish.id == dish.id).update(
+                storage.session.query(Dish).filter(Dish.id == dish.get("id")).update(
                     {"color": dish.get("color")}
                 )
                 storage.session.commit()
