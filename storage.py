@@ -175,7 +175,6 @@ class Storage:
 
     def get_user_by_id(self, id: int) -> UserModel | None:
         user = self.session.query(User).filter(User.id == id).first()
-        print(f"!get_user_by_id user.telegram_id {user.telegram_id}")
         if user:
             return UserModel(
                 id=user.id,
