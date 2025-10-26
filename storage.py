@@ -210,6 +210,7 @@ class Storage:
                 carbs=dish.carbs,
                 weight=dish.weight,
                 photo_url=dish.photo_url,
+                color=dish.color,
             )
 
     def create_basket_dish(
@@ -254,6 +255,7 @@ class Storage:
                 carbs=basket_dish.dish.carbs,
                 weight=basket_dish.dish.weight,
                 photo_url=basket_dish.dish.photo_url,
+                color=basket_dish.dish.color,
             ),
         )
 
@@ -296,6 +298,7 @@ class Storage:
                         carbs=basket_dish.dish.carbs,
                         weight=basket_dish.dish.weight,
                         photo_url=basket_dish.dish.photo_url,
+                        color=basket_dish.dish.color,
                     ),
                 )
                 for basket_dish in query.all()
@@ -348,6 +351,7 @@ class Storage:
                     carbs=basket_dish.dish.carbs,
                     weight=basket_dish.dish.weight,
                     photo_url=basket_dish.dish.photo_url,
+                    color=basket_dish.dish.color,
                 ),
             )
 
